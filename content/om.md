@@ -19,12 +19,8 @@ views:
 Om
 =========================
 
-[FIGURE src=image/empty-frame.png?w=300 caption="Ramverk."]
+[FIGURE src=image/empty-frame.png?w=300 class="center" caption="Ramverk."]
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/om.md`.
+Den här kursen borde ha att göra med ramverk.
 
-Skriv några kloka ord om kursen?
-
-Lägg till en representativ bild för kursen, enligt ditt egna val.
-
-[FIGURE src=image/car.png?w=300 caption="En fin bil som demobild."]
+Som Anax.

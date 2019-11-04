@@ -1,7 +1,7 @@
-Theme for dbwebb.se
+Theme for design-course
 ===============================
 
-[![Build Status](https://travis-ci.org/desinax/theme-dbwebb.se.svg?branch=master)](https://travis-ci.org/desinax/theme-dbwebb.se)
-[![CircleCI](https://circleci.com/gh/desinax/theme-dbwebb.se.svg?style=svg)](https://circleci.com/gh/desinax/theme-dbwebb.se)
+[![Build Status](https://travis-ci.org/desinax/theme-design-course.svg?branch=master)](https://travis-ci.org/desinax/theme-design-course)
+[![CircleCI](https://circleci.com/gh/desinax/theme-design-course.svg?style=svg)](https://circleci.com/gh/desinax/theme-design-course)
 
-Theme for dbwebb.se
+Theme for the design course.

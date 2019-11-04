@@ -1,0 +1,218 @@
+/*!
+ * Stylesheet for oophp kmom01.
+ *
+ * This stylesheet is the first one for the oophp course.
+ */
+
+
+//Mixins
+
+@import "mixin/clearfix.less";
+.clearfix() {
+    #design-mixin.clearfix()
+}
+ /**
+  * Normalize and reset the style.
+  */
+@import "normalize.css/normalize.less";
+
+
+
+ /**
+  * Font Awesome.
+  */
+@import "@fortawesome/fontawesome-free/less/fontawesome.less";
+@import "@fortawesome/fontawesome-free/less/solid.less";
+@import "@fortawesome/fontawesome-free/less/brands.less";
+
+
+/**
+ * Internal self contained modules, save in directory module/.
+ */
+// @import "module/kmom01.less";
+@import "module/stylechooser.less";  // Just an example module
+
+
+/**
+ * A responsive menu.
+ */
+@import "@desinax/responsive-menu/less/responsive-menu.less";
+//@import "@desinax/responsive-menu/less/media-queries.less";
+
+
+/**
+ * Import the typographic grid.
+ */
+@import "@desinax/typographic-grid/less/typography-font-families.less";
+@import "@desinax/typographic-grid/less/typography-defaults.less";
+
+
+/**
+ * Figure and figcaption for images and other media using figure/figcaption
+ */
+@import "@desinax/figure/less/asciinema.less";
+@import "@desinax/figure/less/codepen.less";
+@import "@desinax/figure/less/figure.less";
+
+figure.asciinema {
+    &:extend(figure.figure);
+    #desinax-figure.asciinema();
+}
+
+figure.codepen,
+figure.figure-codepen {
+    &:extend(figure.figure);
+    #desinax-figure.codepen();
+}
+
+// Enable style from the module and optinally add customized layout
+figure.figure {
+    @maxContentWidth: 960px;
+    #desinax-figure.figure(@maxContentWidth);
+}
+
+
+// Show the grid
+.hgrid .inner-wrap {
+    @gridImage: "../img/magic-number-@{magicNumber}.png";
+    #desinax-hgrid.showGrid(@gridImage);
+}
+
+
+/**
+ * Base style to affect HTML elements on a general scale.
+ */
+// @import "base/base.less";
+@import "base/base_kmom01.less";
+
+// // Enable style from the module and optinally add customized layout
+// figure.figure {
+//     @maxContentWidth: 960px;
+//     #desinax-figure.figure(@maxContentWidth);
+// }
+
+/**
+ * Import the vertical grid.
+ */
+@import "@desinax/vertical-grid/less/grid.less";
+@import "layout/vgrid.less";
+
+
+
+
+// Default grid, change to fit your requirements.
+// @columnWidth:   30;
+// @gutterWidth:   10;
+// @columns:       24;
+// @gridType:      "float"; // "flex"
+
+
+
+
+/**
+ * Layout style for general structure of header, navbar, main, footer
+ * and other regions of the page including route specific styles.
+ */
+// @import "layout/layout.less";
+// @import "layout/layout_kmom02.less";
+@import "layout/responsive.less";
+@import "layout/regions.less";     // To add style for ?regions
+
+
+
+
+
+
+/**
+ * My own settings, not currently in their own module.
+ */
+ // @bgColorHtml: #e9e0d2;  //#424242;
+ // @bgColorBody: #e9e0d2; //#ddd;  //#fff;
+ // @colorBody: rgb(70,74,62);
+ // @bgColorinnerWrap: #e9e0d2;
+ // @bgColorFooter: rgb(70,74,62);
+ // @bgColorRegionFooter: rgb(70,74,62);
+ // @colorFooter: #e9e0d2;
+ // @bgColorHeader: #e9e0d2;
+
+ @bgColorHtml: rgb(70,74,62);  //#424242;
+ @bgColorBody: rgb(70,74,62); //#ddd;  //#fff;
+ @colorBody: #e9e0d2;
+ @bgColorinnerWrap: rgb(70,74,62);
+ @bgColorFooter: #e9e0d2;
+ @bgColorRegionFooter: #e9e0d2;
+ @colorFooter: rgb(70,74,62);
+ @bgColorHeader: rgb(70,74,62);
+
+ //Adapt typographic grid to style
+ @fontFamilyHeadings: @fontFamilyHelvetica; //"serif";
+ @fontFamilyBody:     @fontFamilyHelvetica; //"sans-serif";
+ @fontFamilyCode:     @fontFamilyCourier; //"monospace";
+
+ // Magic number and base fontsize
+ @magicNumber:  24px;  // 22px
+@fontSizeBody: 18px; //16px;
+
+// .rm-desktop li a {
+//    color: inherit;
+//    background-color: #e9e0d2;
+// }
+//
+// .rm-desktop li a:hover {
+//    color: #e9e0d2;
+//    background-color: rgb(70, 74, 62);
+//    text-decoration: none;
+// }
+
+code {
+    color: rgb(70, 74, 62);
+}
+
+.rm-desktop li a {
+   color: inherit;
+   background-color: rgb(70, 74, 62);
+}
+
+.rm-desktop li a:hover {
+   color: rgb(70, 74, 62);
+   background-color: #e9e0d2;
+   text-decoration: none;
+}
+
+td {
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    // border: 1px solid black;
+    width: 150px;
+}
+
+@media screen and (max-width: 800px) {
+    .td-products {
+        display: block;
+        padding: 10px;
+    }
+}
+
+form {
+    margin-bottom: 100px;
+}
+
+.computerdiv {
+   float: right;
+   margin: 0 30px;
+}
+
+.humandiv {
+    float: right;
+}
+
+.pigtable {
+    margin-top: 41px;
+    width: 387px;
+}
+
+img.thumb {
+    max-width: 300px;
+    max-height: 300px;
+}

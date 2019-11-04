@@ -1,0 +1,85 @@
+/**
+ * Base style to affect HTML elements on a general scale.
+ */
+@bgColorHtml: gray;  //#424242;
+@bgColorBody: white;  //#fff;
+@colorBody: #333;
+@bgColorinnerWrap: white;
+@bgColorFooter: white;
+@bgColorRegionFooter: white;
+@colorFooter: white;
+@bgColorHeader: white;
+// @fontFamilyBody: serif;
+
+html {
+    overflow-y: scroll;
+    background-color: @bgColorHtml;
+}
+
+a {
+ color: @colorBody;
+}
+
+article {
+	padding: 5px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: @colorBody;
+    background-color: @bgColorBody;
+    #desinax-hgrid.font(@fontSizeBody);
+    // font: 100.01%/1 @fontFamilyBody;
+}
+
+.inner-wrap {
+    #desinax-vgrid.grid(1100px);
+    // max-width: 1000px;
+    // margin: 0 auto;
+    background-color: @bgColorinnerWrap;
+    //Special:
+    padding-bottom: 0.01px;
+}
+
+.outer-wrap-footer,
+.inner.wrap-footer {
+    background-color: @bgColorFooter;//#333;
+    color: @colorFooter;
+}
+
+.region-footer {
+   // clear: both;
+   // padding: 50px;
+   background-color: @bgColorRegionFooter;
+}
+
+.inner-wrap-footer {
+    background-color: @bgColorRegionFooter;
+}
+
+.site-footer a {
+    color: @colorFooter;
+}
+
+.inner-wrap-header {
+    #desinax-vgrid.grid(100%);
+    background-color: @bgColorHeader;
+}
+
+.site-logo-text a {
+    font-size: 25px;
+    text-decoration: none;
+    color: @colorBody;
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+img {
+    max-width: 100%;
+}
+
+// Activate grid and affect all typographic elements
+#desinax-hgrid.activateDefaultTypography();

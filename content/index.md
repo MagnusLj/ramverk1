@@ -8,7 +8,7 @@ Hej! Den här sidan ska handla om mig för det är en me-sida.
 
 Jag heter Magnus och går andra året på webbprogrammeringsutbildningen på BTH.
 
-Jag jobbar just nu med Skånes nya journalsystem som är tänkt att sättas igång 2021. Mina stora fritidsintressen på sistone har varit att köra med släp, bära saker i trappor och leta efter saker. Nu har vi dock flyttat färdigt från staden till en by, förutom att vi tydligen glömde tömma ett helt köksskåp innan vi lämnade över lägenheten.
+Jag jobbar ibland kliniskt men just nu mest med Region Skånes nya journalsystem som är tänkt att sättas igång 2021. Mina stora fritidsintressen på sistone har varit att köra med släp, bära saker i trappor och leta efter saker. Nu har vi dock flyttat färdigt från staden till en by.
 
 Annars håller vi på att renovera ett hus i samma by.
 

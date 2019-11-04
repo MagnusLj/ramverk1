@@ -1,0 +1,101 @@
+/**
+ * Layout style for general structure of header, navbar, main, footer
+ * and other regions of the page including route specific styles.
+ */
+
+/**
+ * Variables
+ */
+
+
+/**
+ * General layout
+ */
+
+ // Footer layout
+
+
+
+ .outer-wrap-footer,
+ .inner.wrap-footer {
+     background-color: #333;
+     color: #fff;
+ }
+
+.outer-wrap-header {
+    background-color: #89d2ff;
+//      overflow: auto;
+    .clearfix();
+ }
+//
+.inner-wrap-header {
+    max-width: 100%;
+}
+
+
+//
+.region-header-col-1,
+.region-header-col-3 {
+    width: 20%;
+    float: left;
+}
+
+.region-header-col-2 {
+    text-align: center;
+    float: left;
+    width: 60%;
+}
+
+.inner-wrap-main {
+    overflow: auto;
+}
+
+.region-main,
+.region-sidebar-right,
+.region-sidebar-left {
+    //background-color: pink;
+    //overflow: auto;
+    //float: left;
+}
+
+.region-main {
+    width: 70%;
+    margin-left: 10%;
+    float: left;
+    overflow: auto;
+
+    &.has-sidebar {
+        margin-left: 0;
+    }
+
+    &.has-sidebar-left.has-sidebar-right {
+        width: 60%;
+    }
+}
+
+.region-sidebar-left,
+.region-sidebar-right {
+    width: 30%
+    float: left;
+}
+
+.region-sidebar-left.has-sidebar-right,
+.region-sidebar-right.has-sidebar-left {
+    width: 20%;
+    float: left;
+}
+
+.region-footer {
+    clear: both;
+ 	padding: 50px;
+ 	background-color: #333;
+ }
+
+
+.rm-navbar-max {
+    display: initial;
+}
+
+.rm-desktop ul {
+    display: initial;
+}
