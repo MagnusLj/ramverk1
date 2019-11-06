@@ -10,14 +10,14 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Här är resultatet för adressen <?= $content ?></h1>
+?><h1>Här är resultatet för adressen <?= $ip1 ?></h1>
 
 <!-- <h1>Guess my number</h1> -->
 
 
-<p>Lägg in ip-adressen här nedanför och tryck på Kolla så blir du klokare.</p>
+<p>Domännamn: <?= $hostname ?></p>
 
-
+<p>Typ: <?= $type ?></p>
 
 
 

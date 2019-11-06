@@ -1,5 +1,5 @@
 <?php
-namespace Anax\Controller;
+namespace Malm18\IPChecker;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 // use Anax\Route\Exception\ForbiddenException;
@@ -32,6 +32,10 @@ class IPController implements ContainerInjectableInterface
     {
         // Use to initialise member variables.
         $this->db = "active";
+        $session = $this->di->session;
+        $IPHandler = new IPHandler();
+        $session->set("IPHandler", $IPHandler);
+        // var_dump($IPHandler);
     }
 
 
@@ -82,6 +86,7 @@ class IPController implements ContainerInjectableInterface
             "content" => "HELLO!"
         ];
         $page->add("anax/v2/article/default", $data);
+
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");
@@ -91,6 +96,7 @@ class IPController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
         $session = $this->di->session;
+        $IPHandler = $session->get("IPHandler");
         // $session->set("ip1", "ip2");
         // var_dump($session);
         // Add content as a view and then render the page
@@ -99,6 +105,7 @@ class IPController implements ContainerInjectableInterface
         //     "content" => "HELLO!"
         // ];
         $page->add("ipChecker/ipChecker");
+        // $IPHandler->active();
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");
@@ -107,12 +114,18 @@ class IPController implements ContainerInjectableInterface
 
     public function indexActionPost() : object
     {
+
+
         $session = $this->di->session;
+        $IPHandler = $session->get("IPHandler");
         $request = $this->di->request;
         $response = $this->di->response;
         if ($request->getPost("ipsubmit")) {
         $theIP = $request->getPost("ip1");
-        $session->set("ip1", $theIP);
+        $IPInfo = $IPHandler->checkIP($theIP);
+        $session->set("ip1", $IPInfo['ipaddress']);
+        $session->set("hostname", $IPInfo['hostname']);
+        $session->set("type", $IPInfo['type']);
 
         return $response->redirect("ip-checker/resultpage");
     // } elseif ($_POST["newRoll"] ?? false) {
@@ -136,9 +149,13 @@ class IPController implements ContainerInjectableInterface
         $session = $this->di->session;
         // $session->set("ip1", "ip2");
         $ip1 = $session->get("ip1");
+        $hostname = $session->get("hostname");
+        $type = $session->get("type");
         // var_dump($session);
         $data = [
-            "content" => $ip1
+            "ip1" => $ip1,
+            "hostname" => $hostname,
+            "type" => $type
         ];
         // Add content as a view and then render the page
         $page = $this->di->get("page");

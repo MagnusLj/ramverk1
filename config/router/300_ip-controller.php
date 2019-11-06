@@ -7,7 +7,7 @@ return [
         [
             "info" => "IP Checker.",
             "mount" => "ip-checker",
-            "handler" => "\Anax\Controller\IPController",
+            "handler" => "\Malm18\IPChecker\IPController",
         ],
     ]
 ];
