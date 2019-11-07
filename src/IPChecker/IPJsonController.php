@@ -67,30 +67,101 @@ class IPJsonController implements ContainerInjectableInterface
      * ANY METHOD mountpoint/
      * ANY METHOD mountpoint/index
      *
-     * @return array
-     */
+         */
+    // public function indexActionGet()
+    // {
+    //     // $request = $this->di->get("request");
+    //     $request = $this->di->request;
+    //     $response = $this->di->response;
+    //     $theIP = $this->di->get("request")->getGet("ip");
+    //     // var_dump($theIP);
+    //
+    //     $IPHandler = new IPHandler();
+    //     $IPInfo = $IPHandler->checkIP($theIP);
+    //     $session = $this->di->session;
+    //
+    //     // var_dump($IPInfo);
+    //
+    //         // $json = [
+    //         //     "ipaddress" => $IPInfo['ipaddress'], "hostname" => $IPInfo['hostname'],
+    //         //     "type" => $IPInfo['ipaddress']
+    //         // ];
+    //         $json = json_encode($IPInfo, JSON_PRETTY_PRINT);
+    //         $session->set("json", $json);
+    //         $session->set("ipaddress", $IPInfo['ipaddress']);
+    //         return $response->redirect("ip-json-checker/jsonResultPage");
+    //         // var_dump($json);
+    //     // Deal with the action and return a response.
+    //     // return $json;
+    // }
+
     public function indexActionGet()
     {
         // $request = $this->di->get("request");
         $request = $this->di->request;
+        // $response = $this->di->response;
         $theIP = $this->di->get("request")->getGet("ip");
         // var_dump($theIP);
 
         $IPHandler = new IPHandler();
         $IPInfo = $IPHandler->checkIP($theIP);
+        // $session = $this->di->session;
+
+        $IPInfo = $IPHandler->checkIP($theIP);
+
+        $IPInfo2 = array("data"=>$IPInfo);
+
         // var_dump($IPInfo);
 
             // $json = [
             //     "ipaddress" => $IPInfo['ipaddress'], "hostname" => $IPInfo['hostname'],
             //     "type" => $IPInfo['ipaddress']
             // ];
-            $json = json_encode($IPInfo);
+            // $ipaddress = $theIP;
+            $json = json_encode($IPInfo2);
+            // $session->set("json", $json);
+            // $session->set("ipaddress", $IPInfo['ipaddress']);
+
+            // $page = $this->di->get("page");
+            //
+            // $data = [
+            //     "ipaddress" => $ipaddress,
+            //     "json" => $json
+            // ];
+
+            // $page->add("ipChecker/jsonResultPage", $data);
+            //
+            // return $page->render();
+
+            return [$json];
+
+
+            // return $response->redirect("ip-json-checker/jsonResultPage");
             // var_dump($json);
         // Deal with the action and return a response.
-        return [$json];
+        // return $json;
     }
 
-
+    // public function jsonResultPageActionGet() : object
+    // {
+    //
+    //
+    //     $session = $this->di->session;
+    //     $ipaddress = $session->get("ipaddress");
+    //     $json = $session->get("json");
+    //
+    //     $page = $this->di->get("page");
+    //
+    //     $data = [
+    //         "ipaddress" => $ipaddress,
+    //         "json" => $json
+    //     ];
+    //
+    //     $page->add("ipChecker/jsonResultPage", $data);
+    //
+    //     return $page->render();
+    // // } elseif ($_POST["newRoll"] ?? false) {
+    // }
 
     /**
      * This sample method dumps the content of $di.

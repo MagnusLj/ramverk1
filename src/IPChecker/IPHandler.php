@@ -18,14 +18,16 @@ class IPHandler
 
     public function checkIP($theIP)
     {
-        $hostname = gethostbyaddr("$theIP");
+        $hostname = "";
         $type = "";
 
 
 if (filter_var($theIP, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
     $type = "IPv6";
+    $hostname = gethostbyaddr("$theIP");
 } elseif (filter_var($theIP, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     $type = "IPv4";
+    $hostname = gethostbyaddr("$theIP");
 } else {
     $type = "Inte riktig IP-adress";
 }

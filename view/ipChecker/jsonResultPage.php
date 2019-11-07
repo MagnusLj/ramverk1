@@ -15,7 +15,7 @@ namespace Anax\View;
 <!-- <h1>Guess my number</h1> -->
 
 
-<pre>Domännamn: <?= $json ?></pre>
+<pre>Voila: <?= $json ?></pre>
 
 
 
