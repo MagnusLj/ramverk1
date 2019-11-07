@@ -95,6 +95,11 @@ class IPJsonController implements ContainerInjectableInterface
     //     // return $json;
     // }
 
+
+
+
+
+
     public function indexActionGet()
     {
         // $request = $this->di->get("request");
@@ -141,6 +146,54 @@ class IPJsonController implements ContainerInjectableInterface
         // Deal with the action and return a response.
         // return $json;
     }
+
+
+    public function ipJsonCheckerActionGet() : object
+    {
+        $session = $this->di->session;
+        // $session->set("ip1", "ip2");
+        $ip1 = $session->get("ip1");
+        $hostname = $session->get("hostname");
+        $type = $session->get("type");
+        // var_dump($session);
+        $data = [
+            "ip1" => $ip1,
+            "hostname" => $hostname,
+            "type" => $type
+        ];
+        // Add content as a view and then render the page
+        $page = $this->di->get("page");
+        // $data = [
+        //     "content" => "HELLO!"
+        // ];
+        $page->add("ipChecker/ipJsonChecker", $data);
+        // $page->add("anax/v2/article/default", $data, "sidebar-left");
+        // $page->add("anax/v2/article/default", $data, "sidebar-right");
+        // $page->add("anax/v2/article/default", $data, "flash");
+        return $page->render();
+    }
+
+
+    public function ipJsonCheckerActionPost() : object
+    {
+
+
+        // $session = $this->di->session;
+        // $IPHandler = $session->get("IPHandler");
+        $request = $this->di->request;
+        $response = $this->di->response;
+        if ($request->getPost("ipsubmit")) {
+        $theIP = $request->getPost("ip1");
+        // $IPInfo = $IPHandler->checkIP($theIP);
+        // $session->set("ip1", $IPInfo['ipaddress']);
+        // $session->set("hostname", $IPInfo['hostname']);
+        // $session->set("type", $IPInfo['type']);
+
+        return $response->redirect("ip-json-checker?ip=$theIP");
+    }
+    // elseif ($_POST["newRoll"] ?? false) {
+    }
+
 
     // public function jsonResultPageActionGet() : object
     // {

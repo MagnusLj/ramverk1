@@ -53,5 +53,10 @@ return [
             "url" => "ip-checker",
             "title" => "Kolla IP-adress.",
         ],
+        [
+            "text" => "IP-JSON",
+            "url" => "ip-json-checker/ipJsonChecker",
+            "title" => "Kolla IP-adress.",
+        ],
     ],
 ];
