@@ -22,25 +22,25 @@ class IPJsonController implements ContainerInjectableInterface
 
 
 
-    /**
-     * @var string $db a sample member variable that gets initialised
-     */
-    private $db = "not active";
+    // /**
+    //  * @var string $db a sample member variable that gets initialised
+    //  */
+    // private $db = "not active";
 
 
 
-    /**
-     * The initialize method is optional and will always be called before the
-     * target method/action. This is a convienient method where you could
-     * setup internal properties that are commonly used by several methods.
-     *
-     * @return void
-     */
-    public function initialize() : void
-    {
-        // Use to initialise member variables.
-        $this->db = "active";
-    }
+    // /**
+    //  * The initialize method is optional and will always be called before the
+    //  * target method/action. This is a convienient method where you could
+    //  * setup internal properties that are commonly used by several methods.
+    //  *
+    //  * @return void
+    //  */
+    // public function initialize() : void
+    // {
+    //     // Use to initialise member variables.
+    //     $this->db = "active";
+    // }
 
 
 
@@ -102,49 +102,20 @@ class IPJsonController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        // $request = $this->di->get("request");
         $request = $this->di->request;
-        // $response = $this->di->response;
         $theIP = $this->di->get("request")->getGet("ip");
-        // var_dump($theIP);
 
         $IPHandler = new IPHandler();
         $IPInfo = $IPHandler->checkIP($theIP);
-        // $session = $this->di->session;
 
         $IPInfo = $IPHandler->checkIP($theIP);
 
         $IPInfo2 = array("data"=>$IPInfo);
 
-        // var_dump($IPInfo);
+        $json = json_encode($IPInfo2);
 
-            // $json = [
-            //     "ipaddress" => $IPInfo['ipaddress'], "hostname" => $IPInfo['hostname'],
-            //     "type" => $IPInfo['ipaddress']
-            // ];
-            // $ipaddress = $theIP;
-            $json = json_encode($IPInfo2);
-            // $session->set("json", $json);
-            // $session->set("ipaddress", $IPInfo['ipaddress']);
+        return [$json];
 
-            // $page = $this->di->get("page");
-            //
-            // $data = [
-            //     "ipaddress" => $ipaddress,
-            //     "json" => $json
-            // ];
-
-            // $page->add("ipChecker/jsonResultPage", $data);
-            //
-            // return $page->render();
-
-            return [$json];
-
-
-            // return $response->redirect("ip-json-checker/jsonResultPage");
-            // var_dump($json);
-        // Deal with the action and return a response.
-        // return $json;
     }
 
 
@@ -174,26 +145,45 @@ class IPJsonController implements ContainerInjectableInterface
     }
 
 
+    // public function ipJsonCheckerActionPost() : object
+    // {
+    //
+    //
+    //     // $session = $this->di->session;
+    //     // $IPHandler = $session->get("IPHandler");
+    //     $request = $this->di->request;
+    //     $response = $this->di->response;
+    //     if ($request->getPost("ipsubmit")) {
+    //     $theIP = $request->getPost("ip1");
+    //     // $IPInfo = $IPHandler->checkIP($theIP);
+    //     // $session->set("ip1", $IPInfo['ipaddress']);
+    //     // $session->set("hostname", $IPInfo['hostname']);
+    //     // $session->set("type", $IPInfo['type']);
+    //
+    //     return $response->redirect("ip-json-checker?ip=$theIP");
+    // }
+    // // elseif ($_POST["newRoll"] ?? false) {
+    // }
+
+
     public function ipJsonCheckerActionPost() : object
-    {
+       {
+           // $session = $this->di->session;
+           $IPHandler = new IPHandler();
+           $request = $this->di->request;
+           $response = $this->di->response;
+           $theIP = $request->getPost("ip1");
 
+           if (!is_null($theIP)) {
+             $IPInfo = $IPHandler->checkIP($theIP);
+             // $session->set("ip1", $IPInfo['ipaddress']);
+             // $session->set("hostname", $IPInfo['hostname']);
+             // $session->set("type", $IPInfo['type']);
+           }
 
-        // $session = $this->di->session;
-        // $IPHandler = $session->get("IPHandler");
-        $request = $this->di->request;
-        $response = $this->di->response;
-        if ($request->getPost("ipsubmit")) {
-        $theIP = $request->getPost("ip1");
-        // $IPInfo = $IPHandler->checkIP($theIP);
-        // $session->set("ip1", $IPInfo['ipaddress']);
-        // $session->set("hostname", $IPInfo['hostname']);
-        // $session->set("type", $IPInfo['type']);
+           return $response->redirect("ip-json-checker?ip=$theIP");
 
-        return $response->redirect("ip-json-checker?ip=$theIP");
-    }
-    // elseif ($_POST["newRoll"] ?? false) {
-    }
-
+}
 
     // public function jsonResultPageActionGet() : object
     // {
@@ -216,37 +206,37 @@ class IPJsonController implements ContainerInjectableInterface
     // // } elseif ($_POST["newRoll"] ?? false) {
     // }
 
-    /**
-     * This sample method dumps the content of $di.
-     * GET mountpoint/dump-app
-     *
-     * @return array
-     */
-    public function dumpDiActionGet() : array
-    {
-        // Deal with the action and return a response.
-        $services = implode(", ", $this->di->getServices());
-        $json = [
-            "message" => __METHOD__ . "<p>\$di contains: $services",
-            "di" => $this->di->getServices(),
-        ];
-        return [$json];
-    }
+    // /**
+    //  * This sample method dumps the content of $di.
+    //  * GET mountpoint/dump-app
+    //  *
+    //  * @return array
+    //  */
+    // public function dumpDiActionGet() : array
+    // {
+    //     // Deal with the action and return a response.
+    //     $services = implode(", ", $this->di->getServices());
+    //     $json = [
+    //         "message" => __METHOD__ . "<p>\$di contains: $services",
+    //         "di" => $this->di->getServices(),
+    //     ];
+    //     return [$json];
+    // }
 
 
 
-    /**
-     * Try to access a forbidden resource.
-     * ANY mountpoint/forbidden
-     *
-     * @return array
-     */
-    public function forbiddenAction() : array
-    {
-        // Deal with the action and return a response.
-        $json = [
-            "message" => __METHOD__ . ", forbidden to access.",
-        ];
-        return [$json, 403];
-    }
+    // /**
+    //  * Try to access a forbidden resource.
+    //  * ANY mountpoint/forbidden
+    //  *
+    //  * @return array
+    //  */
+    // public function forbiddenAction() : array
+    // {
+    //     // Deal with the action and return a response.
+    //     $json = [
+    //         "message" => __METHOD__ . ", forbidden to access.",
+    //     ];
+    //     return [$json, 403];
+    // }
 }
