@@ -109,6 +109,25 @@ class IPControllerTest extends TestCase
     }
 
 
+    /**
+     * Test the route "indexPost".
+     */
+    public function testIndexActionPost2()
+    {
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+        $this->di->set("response", "\Anax\Response\Response");
+        $request->setPost("ip1", "2a03:2880:f21a:e5:face:b00c::4420");
+        $res = $this->controller->indexActionPost();
+        // $this->assertIsObject($res);
+        // $this->assertInstanceOf("\Anax\Response\Response", $res);
+        $this->assertEquals(null, $res->getBody());
+        // $body = $res->getBody();
+        // $xxx = "IPv4";
+        // $this->assertContains($xxx, $body);
+    }
+
+
     // public function testIndexActionPost()
     // {
     //     global $di;
