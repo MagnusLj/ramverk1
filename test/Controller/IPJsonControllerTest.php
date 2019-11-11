@@ -4,6 +4,7 @@ namespace Malm18\IPChecker;
 
 use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
+
 /**
  * Test the IpcheckControllerTest.
  */
@@ -80,14 +81,14 @@ class IPJsonControllerTest extends TestCase
  //     $this->assertContains($exp, $json["message"]);
  // }
 
- public function testIndexActionGet()
-{
-    $controller = $this->controller;
-    $request = $this->di->get("request");
-    //testcases
-    $res = $controller->indexActionGet();
-    $this->assertIsArray($res);
-}
+    public function testIndexActionGet()
+    {
+        $controller = $this->controller;
+        $request = $this->di->get("request");
+        //testcases
+        $res = $controller->indexActionGet();
+        $this->assertIsArray($res);
+    }
 
 
     /**
@@ -197,7 +198,4 @@ class IPJsonControllerTest extends TestCase
     //     $body = $res->getBody();
     //     $this->assertContains("Validate an IP address", $body);
     // }
-
-
-
 }

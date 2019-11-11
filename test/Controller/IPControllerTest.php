@@ -4,6 +4,7 @@ namespace Malm18\IPChecker;
 
 use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
+
 /**
  * Test the IpcheckControllerTest.
  */
@@ -154,7 +155,4 @@ class IPControllerTest extends TestCase
     //     $body = $res->getBody();
     //     $this->assertContains("Validate an IP address", $body);
     // }
-
-
-
 }

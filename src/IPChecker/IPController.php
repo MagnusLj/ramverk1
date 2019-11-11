@@ -1,7 +1,9 @@
 <?php
 namespace Malm18\IPChecker;
+
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -135,22 +137,22 @@ class IPController implements ContainerInjectableInterface
 
 
     public function indexActionPost() : object
-       {
-           $session = $this->di->session;
-           $IPHandler = new IPHandler();
-           $request = $this->di->request;
-           $response = $this->di->response;
-           $theIP = $request->getPost("ip1");
+    {
+        $session = $this->di->session;
+        $IPHandler = new IPHandler();
+        $request = $this->di->request;
+        $response = $this->di->response;
+        $theIP = $request->getPost("ip1");
 
-           if (!is_null($theIP)) {
-             $IPInfo = $IPHandler->checkIP($theIP);
-             $session->set("ip1", $IPInfo['ipaddress']);
-             $session->set("hostname", $IPInfo['hostname']);
-             $session->set("type", $IPInfo['type']);
-           }
+        if (!is_null($theIP)) {
+            $IPInfo = $IPHandler->checkIP($theIP);
+            $session->set("ip1", $IPInfo['ipaddress']);
+            $session->set("hostname", $IPInfo['hostname']);
+            $session->set("type", $IPInfo['type']);
+        }
 
            return $response->redirect("ip-checker/resultpage");
-       }
+    }
 
 
 
@@ -178,6 +180,4 @@ class IPController implements ContainerInjectableInterface
         // $page->add("anax/v2/article/default", $data, "flash");
         return $page->render();
     }
-
-
 }

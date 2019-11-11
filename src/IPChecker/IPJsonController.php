@@ -115,7 +115,6 @@ class IPJsonController implements ContainerInjectableInterface
         $json = json_encode($IPInfo2);
 
         return [$json];
-
     }
 
 
@@ -167,23 +166,22 @@ class IPJsonController implements ContainerInjectableInterface
 
 
     public function ipJsonCheckerActionPost() : object
-       {
+    {
            // $session = $this->di->session;
            $IPHandler = new IPHandler();
            $request = $this->di->request;
            $response = $this->di->response;
            $theIP = $request->getPost("ip1");
 
-           if (!is_null($theIP)) {
-             $IPInfo = $IPHandler->checkIP($theIP);
+        if (!is_null($theIP)) {
+            $IPInfo = $IPHandler->checkIP($theIP);
              // $session->set("ip1", $IPInfo['ipaddress']);
              // $session->set("hostname", $IPInfo['hostname']);
              // $session->set("type", $IPInfo['type']);
-           }
+        }
 
            return $response->redirect("ip-json-checker?ip=$theIP");
-
-}
+    }
 
     // public function jsonResultPageActionGet() : object
     // {
