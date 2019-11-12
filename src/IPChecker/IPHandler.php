@@ -16,7 +16,7 @@ class IPHandler
     //     return $theIP2;
     // }
 
-    public function checkIP($theIP)
+    public function checkIP2($theIP)
     {
         $hostname = "";
         $type = "";
@@ -35,6 +35,42 @@ class IPHandler
         $IPInfo = array("ipaddress"=>$theIP, "hostname"=>$hostname, "type"=>$type);
         return $IPInfo;
     }
+
+
+    public function checkIP($theIP)
+    {
+
+        $url = 'http://api.ipstack.com/';
+        $api_key = 'd1efc4cc23a8b14dfad565ee6bde80b8';
+        $request_url = $url . $theIP . '?access_key=' . $api_key;
+        $curl = curl_init($request_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
+        //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
+        //   'Content-Type: application/json'
+        // ]);
+        $response = curl_exec($curl);
+        $response2 = json_decode($response, true);
+        curl_close($curl);
+        // echo $response . PHP_EOL;
+        return $response2;
+}
+
+
+//     public function checkOwnIP()
+//     {
+//
+//         $ownIP = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
+//         return $ownIP;
+// }
+
+    public function checkOwnIP()
+    {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
+// echo "http://api.ipstack.com/130.235.136.64?access_key=d1efc4cc23a8b14dfad565ee6bde80b8";
 
     // /**
     // * Check active.

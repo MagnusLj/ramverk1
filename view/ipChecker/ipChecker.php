@@ -10,18 +10,18 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Kolla en ip-adress</h1>
+?><h1>Check an ip address</h1>
 
 <!-- <h1>Guess my number</h1> -->
 
 
-<p>Lägg in ip-adressen här nedanför och tryck på Kolla så blir du klokare.</p>
+<p>Enter the ip address below (your ip address is defaulted in) and hit Check to be enlightened.</p>
 
 
 
 
 
 <form method="post">
-    <input type="text" name="ip1">
-    <input type="submit" name="ipsubmit" value="Kolla">
+    <input type="text" name="ip1" value=<?= $ownIP ?>>
+    <input type="submit" name="ipsubmit" value="Check">
 </form>
