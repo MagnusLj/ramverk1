@@ -106,30 +106,33 @@ class IPJsonController implements ContainerInjectableInterface
         $theIP = $this->di->get("request")->getGet("ip");
 
         $IPHandler = new IPHandler();
-        $IPInfo = $IPHandler->checkIP($theIP);
+        // $IPInfo = $IPHandler->checkIP($theIP);
 
         $IPInfo = $IPHandler->checkIP($theIP);
 
-        $IPInfo2 = array("data"=>$IPInfo);
+        $IPInfo2 = array("ip address"=>$IPInfo['ip'], "type"=>$IPInfo['type'], "city"=>$IPInfo['city'],
+        "country"=>$IPInfo['country_name'], "latitude"=>$IPInfo['latitude'], "longitude"=>$IPInfo['longitude']);
+        //
+        // $json = json_encode($IPInfo2);
 
-        $json = json_encode($IPInfo2);
-
-        return [$json];
+        return [$IPInfo2];
     }
 
 
     public function ipJsonCheckerActionGet() : object
     {
-        $session = $this->di->session;
-        // $session->set("ip1", "ip2");
-        $ip1 = $session->get("ip1");
-        $hostname = $session->get("hostname");
-        $type = $session->get("type");
+        // $session = $this->di->session;
+        // // $session->set("ip1", "ip2");
+        // $ip1 = $session->get("ip1");
+        // $hostname = $session->get("hostname");
+        // $type = $session->get("type");
         // var_dump($session);
+        $IPHandler = new IPHandler();
+        
+        $ownIP = $IPHandler->checkOwnIP();
+
         $data = [
-            "ip1" => $ip1,
-            "hostname" => $hostname,
-            "type" => $type
+            "ownIP" => $ownIP
         ];
         // Add content as a view and then render the page
         $page = $this->di->get("page");

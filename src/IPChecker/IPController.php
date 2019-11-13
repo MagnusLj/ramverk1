@@ -22,12 +22,12 @@ class IPController implements ContainerInjectableInterface
 
     public function indexActionGet() : object
     {
-        $session = $this->di->session;
+        // $session = $this->di->session;
         $IPHandler = new IPHandler();
 
         $ownIP = $IPHandler->checkOwnIP();
 
-        echo $ownIP;
+
 
         $data = [
             "ownIP" => $ownIP
@@ -52,20 +52,20 @@ class IPController implements ContainerInjectableInterface
         $theIP = $request->getPost("ip1");
 
         if (!is_null($theIP)) {
-            $IPInfo = $IPHandler->checkIP($theIP);
+            // $IPInfo = $IPHandler->checkIP($theIP);
             // $IPInfo2 = json_decode($IPInfo, true);
             // $IPInfo3 = gettype($IPInfo);
             // echo $IPInfo3;
             // var_dump(json_decode($IPInfo, true));
             // var_dump($IPInfo2);
             // var_dump($IPInfo['ip']);
-            $session->set("ip1", $IPInfo['ip']);
+            $session->set("ip1", $theIP);
             // $session->set("hostname", $IPInfo['hostname']);
-            $session->set("type", $IPInfo['type']);
-            $session->set("latitude", $IPInfo['latitude']);
-            $session->set("longitude", $IPInfo['longitude']);
-            $session->set("city", $IPInfo['city']);
-            $session->set("country_name", $IPInfo['country_name']);
+            // $session->set("type", $IPInfo['type']);
+            // $session->set("latitude", $IPInfo['latitude']);
+            // $session->set("longitude", $IPInfo['longitude']);
+            // $session->set("city", $IPInfo['city']);
+            // $session->set("country_name", $IPInfo['country_name']);
         }
 
            return $response->redirect("ip-checker/resultpage");
@@ -82,23 +82,31 @@ class IPController implements ContainerInjectableInterface
         // $session->set("country_name", $IPInfo['country_name']);
 
         $session = $this->di->session;
+
+        $theIP = $session->get("ip1");
+
+        $IPHandler = new IPHandler();
+
+        $IPInfo = $IPHandler->checkIP($theIP);
+
+        // var_dump($IPInfo);
         // $session->set("ip1", "ip2");
-        $ip1 = $session->get("ip1");
+
         // $hostname = $session->get("hostname");
-        $city = $session->get("city");
-        $country_name = $session->get("country_name");
-        $latitude = $session->get("latitude");
-        $longitude = $session->get("longitude");
-        $type = $session->get("type");
+        // $city = $session->get("city");
+        // $country_name = $session->get("country_name");
+        // $latitude = $session->get("latitude");
+        // $longitude = $session->get("longitude");
+        // $type = $session->get("type");
 
         // var_dump($session);
         $data = [
-            "ip1" => $ip1,
-            "city" => $city,
-            "country_name" => $country_name,
-            "latitude" => $latitude,
-            "longitude" => $longitude,
-            "type" => $type
+            "ip1" => $theIP,
+            "city" => $IPInfo['city'],
+            "country_name" => $IPInfo['country_name'],
+            "latitude" => $IPInfo['latitude'],
+            "longitude" => $IPInfo['longitude'],
+            "type" => $IPInfo['type']
         ];
         // Add content as a view and then render the page
         $page = $this->di->get("page");

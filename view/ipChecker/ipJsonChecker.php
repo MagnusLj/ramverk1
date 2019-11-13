@@ -10,23 +10,23 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
 
-?><h1>Kolla en ip-adress (JSON)</h1>
+?><h1>Check an ip address (json)</h1>
 
 <!-- <h1>Guess my number</h1> -->
 
 
-<p>Lägg in ip-adressen här nedanför och tryck på Kolla så får du svar i JSON.</p>
+<p>Enter the ip address below (your ip address is defaulted in) and hit Check to be enlightened, json style</p>
 
 
 
 
 
 <form method="post">
-    <input type="text" name="ip1">
-    <input type="submit" name="ipsubmit" value="Kolla">
+    <input type="text" name="ip1" value=<?= $ownIP ?>>
+    <input type="submit" name="ipsubmit" value="Check">
 </form>
 
-<h3>Testlänkar</h3>
+<h3>Test links</h3>
 
 <a href="../ip-json-checker?ip=208.67.222.222">208.67.222.222</a><br><br>
 
@@ -34,6 +34,6 @@ namespace Anax\View;
 
 <a href="../ip-json-checker?ip=23.66.18.35">23.66.18.35</a><br>
 
-<h3>Instruktioner</h3>
+<h3>Instructions</h3>
 
-<p>Du kan använda ovanstående eller så kan du ändra adressen i webbläsaren så att den slutar på '/ip-json-checker?ip=&lt;ip-adressen du vill kolla&gt;.</p>
+<p>You can use the above or change the address in your browser so that it ends with '/ip-json-checker?ip=&lt;ip address you wish to check&gt;.</p>

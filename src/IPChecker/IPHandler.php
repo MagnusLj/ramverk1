@@ -39,7 +39,7 @@ class IPHandler
 
     public function checkIP($theIP)
     {
-
+        if (filter_var($theIP, FILTER_VALIDATE_IP)) {
         $url = 'http://api.ipstack.com/';
         $api_key = 'd1efc4cc23a8b14dfad565ee6bde80b8';
         $request_url = $url . $theIP . '?access_key=' . $api_key;
@@ -55,6 +55,12 @@ class IPHandler
         curl_close($curl);
         // echo $response . PHP_EOL;
         return $response2;
+        } else {
+            $response = array("type"=>"not valid ip", "ip"=>"", "latitude"=>"", "longitude"=>"",
+        "city"=>"", "country_name"=>"");
+            // $response2 = json_decode($response, true);
+            return $response;
+        }
 }
 
 
