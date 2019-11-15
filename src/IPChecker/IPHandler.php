@@ -64,17 +64,53 @@ class IPHandler
 }
 
 
-//     public function checkOwnIP()
-//     {
-//
-//         $ownIP = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
-//         return $ownIP;
-// }
+    public function minLong($longitude)
+    {
+
+        $minLong = floatval($longitude)-0.6427;
+        return $minLong;
+}
+
+    public function maxLong($longitude)
+    {
+
+        $maxLong = floatval($longitude)+0.6427;
+        return $maxLong;
+}
+
+    public function minLat($latitude)
+    {
+
+        $minLat = (floatval($latitude)) - 0.260;
+        return $minLat;
+}
+
+    public function maxLat($latitude)
+    {
+
+        $maxLat = (floatval($latitude)) + 0.260;
+        return $maxLat;
+}
+
+
+    public function mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong)
+    {
+                    https://www.openstreetmap.org/export/embed.html?bbox=-6.8860333396912%2C53.093889465332%2C-5.6006333396912%2C53.613889465332&amp;layer=mapnik&amp;marker=53.353889465332%2-6.2433333396912
+        // $link = "https://www.openstreetmap.org/export/embed.html?bbox=12.669982910156252%2C55.56592203025787%2C13.955383300781252%2C56.08506381314523&amp;layer=mapnik&amp;marker=55.82635894724891%2C13.31268310546875"
+
+        $link = "https://www.openstreetmap.org/export/embed.html?bbox=" . $minLong . "%2C" . $minLat . "%2C" . $maxLong . "%2C" . $maxLat . "&amp;layer=mapnik&amp;marker=" . $latitude . "%2C" . $longitude;
+
+        return $link;
+    }
+
 
     public function checkOwnIP()
     {
         return $_SERVER['REMOTE_ADDR'];
     }
+
+
+
 
 // echo "http://api.ipstack.com/130.235.136.64?access_key=d1efc4cc23a8b14dfad565ee6bde80b8";
 
