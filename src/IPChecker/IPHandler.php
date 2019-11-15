@@ -129,7 +129,8 @@ class IPHandler
 
     public function checkOwnIP()
     {
-        return $_SERVER['REMOTE_ADDR'];
+        $remote_addr = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR']:'127.0.0.1';
+        return $remote_addr;
     }
 
 
