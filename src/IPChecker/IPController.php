@@ -96,7 +96,13 @@ class IPController implements ContainerInjectableInterface
         $minLat = $IPHandler->minLat($IPInfo['latitude']);
         $maxLat = $IPHandler->maxLat($IPInfo['latitude']);
 
+        // echo("$latitude");
+        // echo($latitude);
+
         $mapLink = $IPHandler->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
+
+        // $var = 5;
+        // $var_is_greater_than_two = ($var > 2 ? true : false);
 
         // var_dump($IPInfo);
         // $session->set("ip1", "ip2");
@@ -116,10 +122,9 @@ class IPController implements ContainerInjectableInterface
             "latitude" => $IPInfo['latitude'],
             "longitude" => $IPInfo['longitude'],
             "mapLink" => $mapLink,
-            // "minLat" => $minLat,
-            // "maxLat" => $maxLat,
-            // "minLong" => $minLong,
-            // "maxLong" => $maxLong,
+            "continent_name" => $IPInfo['continent_name'],
+            "region_name" => $IPInfo['region_name'],
+            // "calling_code" => $IPInfo['location']['calling_code'],
             "type" => $IPInfo['type']
         ];
         // Add content as a view and then render the page

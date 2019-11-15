@@ -27,8 +27,11 @@ namespace Anax\View;
 
 <p>Type: <?= $type ?></p>
 <p>City: <?= $city ?></p>
+<p>Region: <?= $region_name ?></p>
 <p>Country: <?= $country_name ?></p>
+<p>Continent: <?= $continent_name ?></p>
 <p>Position: Latitude <?= $latitude ?>, longitude <?= $longitude ?></p>
+
 
 
 

@@ -110,13 +110,24 @@ class IPJsonController implements ContainerInjectableInterface
 
         $IPInfo = $IPHandler->checkIP($theIP);
 
-        $IPInfo2 = array("ip address"=>$IPInfo['ip'], "type"=>$IPInfo['type'], "city"=>$IPInfo['city'],
-        "country"=>$IPInfo['country_name'], "latitude"=>$IPInfo['latitude'], "longitude"=>$IPInfo['longitude']);
+        // $largeMapLink = $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']);
+
+        $largeMapLink = ($IPInfo['latitude'] ? $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']) : "");
+
+        // $message = 'Hello '.($user->is_logged_in() ? $user->get('first_name') : 'Guest');
+
+        $IPInfo2 = array("ip address" => $IPInfo['ip'], "type" => $IPInfo['type'], "city" => $IPInfo['city'],
+        "country" => $IPInfo['country_name'], "region_name" => $IPInfo['region_name'], "continent_name" => $IPInfo['continent_name'],
+        "latitude" => $IPInfo['latitude'], "longitude" => $IPInfo['longitude'],
+        "map_link" => $largeMapLink);
         //
         // $json = json_encode($IPInfo2);
 
         return [$IPInfo2];
     }
+
+//     $var = 5;
+// $var_is_greater_than_two = ($var > 2 ? true : false);
 
 
     public function ipJsonCheckerActionGet() : object
@@ -128,7 +139,7 @@ class IPJsonController implements ContainerInjectableInterface
         // $type = $session->get("type");
         // var_dump($session);
         $IPHandler = new IPHandler();
-        
+
         $ownIP = $IPHandler->checkOwnIP();
 
         $data = [
