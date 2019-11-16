@@ -128,6 +128,21 @@ class IPControllerTest extends TestCase
         // $this->assertContains($xxx, $body);
     }
 
+    // public function testIndexActionPost3()
+    // {
+    //     $request = $this->di->get("request");
+    //     $response = $this->di->get("response");
+    //     $this->di->set("response", "\Anax\Response\Response");
+    //     $request->setPost("ip1", "eklesiastitsminister");
+    //     $res = $this->controller->indexActionPost();
+    //     // $this->assertIsObject($res);
+    //     // $this->assertInstanceOf("\Anax\Response\Response", $res);
+    //     $this->assertEquals(null, $res->getBody());
+    //     // $body = $res->getBody();
+    //     // $xxx = "IPv4";
+    //     // $this->assertContains($xxx, $body);
+    // }
+
 
     // public function testIndexActionPost()
     // {

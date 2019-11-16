@@ -90,6 +90,17 @@ class IPJsonControllerTest extends TestCase
         $this->assertIsArray($res);
     }
 
+    // public function testIndexActionGet2() : object
+    // {
+    //     $controller = $this->controller;
+    //     $request = $this->di->get("request");
+    //     $request->setGet("ip", "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+    //   $res = $controller->indexActionGet();
+    //   var_dump($res);
+    //   $this->assertIsArray($res[0]);
+    //   // $this->assertArrayHasKey("region_name", $res[0]);
+    //
+    // }
 
     /**
      * Test the route "index".
@@ -119,7 +130,7 @@ class IPJsonControllerTest extends TestCase
         $res = $this->controller->ipJsonCheckerActionGet();
         // $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
-        // $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
         // Get body and compare results
         // $body = $res->getBody();
         //
