@@ -14,13 +14,13 @@ class VaderHandler
 
 
 
-    public function checkIP($theIP)
+    public function checkCoordinates($theIP)
     {
         if (filter_var($theIP, FILTER_VALIDATE_IP)) {
+            $coordinates = [];
             $url = 'http://api.ipstack.com/';
             $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
-            $this->ipstackKey = $keys["ipstackKey"];
-            $api_key = $this->ipstackKey;
+            $api_key = $keys["ipstackKey"];
             $request_url = $url . $theIP . '?access_key=' . $api_key;
             $curl = curl_init($request_url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -32,9 +32,18 @@ class VaderHandler
             $response = curl_exec($curl);
             $response2 = json_decode($response, true);
             curl_close($curl);
+
+            $coordinates['latitude'] = strval($response2['latitude']);
+            $coordinates['longitude'] = strval($response2['longitude']);
             // echo $response . PHP_EOL;
-            return $response2;
+            return $coordinates;
+            //
+            // // echo $response . PHP_EOL;
+            // return $response2;
+
+
         } else {
+            $coordinates = [];
             // $response = array("type" => "not valid ip", "ip" => "", "latitude"=> "", "longitude"=> "",
             // "city" => "", "country_name" => "", "region_name" => "", "continent_name" => "", "location['country_code']" => "");
             // // $response2 = json_decode($response, true);
@@ -56,39 +65,90 @@ class VaderHandler
             $response = curl_exec($curl);
             $response2 = json_decode($response, true);
             curl_close($curl);
+            $coordinates['latitude'] = $response2[0]['lat'];
+            $coordinates['longitude'] = $response2[0]['lon'];
             // echo $response . PHP_EOL;
-            return $response2;
+            return $coordinates;
         }
     }
 
 
-    public function checkCoordinates($place)
+
+
+    public function checkWeather($latitude, $longitude)
     {
-        if (filter_var($theIP, FILTER_VALIDATE_IP)) {
-            $url = 'http://api.ipstack.com/';
-            $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
-            $this->ipstackKey = $keys["ipstackKey"];
-            $api_key = $this->ipstackKey;
-            $request_url = $url . $theIP . '?access_key=' . $api_key;
-            $curl = curl_init($request_url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($curl, CURLOPT_HTTPHEADER, [
-        //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
-        //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
-        //   'Content-Type: application/json'
-        // ]);
-            $response = curl_exec($curl);
-            $response2 = json_decode($response, true);
-            curl_close($curl);
-            // echo $response . PHP_EOL;
-            return $response2;
-        } else {
-            $response = array("type" => "not valid ip", "ip" => "", "latitude"=> "", "longitude"=> "",
-            "city" => "", "country_name" => "", "region_name" => "", "continent_name" => "", "location['country_code']" => "");
-            // $response2 = json_decode($response, true);
-            return $response;
-        }
+
+        $url1 = 'https://api.darksky.net/forecast/';
+
+        $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
+        $api_key = $keys["darkskyKey"];
+        $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=auto';
+        $request_url = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
+        // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
+        $curl = curl_init($request_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
+    //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
+    //   'Content-Type: application/json'
+    // ]);
+        $response = curl_exec($curl);
+        $response2 = json_decode($response, true);
+        curl_close($curl);
+        // $coordinates['latitude'] = $response2[0]['lat'];
+        // $coordinates['longitude'] = $response2[0]['lon'];
+        // echo $response . PHP_EOL;
+        return $response2;
+
+        // $coordinates = "Latitud: " . $latitude . ", longitud: " . $longitude;
+        // return $coordinates;
     }
+
+
+    public function checkWeather2($weather)
+    {
+        $weather2 = [];
+        $locale = 'sv-SE.utf8';
+        setlocale(LC_TIME, $locale);
+        foreach ($weather['data'] as $day) {
+            // array_push($weather2, $day['time']);
+            $unix_timestamp = $day['time'];
+            echo $unix_timestamp;
+            $datetime = date('Y-m-d l', $unix_timestamp);
+            // $datetime2 = strftime('%d %B %Y %A', strtotime($datetime));
+            $datetime2 = strftime('%A %d %B', strtotime($datetime));
+            // $datetime2 = $datetime->format('d/m');
+            // $weather2[$i] = (['day'] => [$day]);
+            array_push($weather2, $datetime2);
+        }
+        return $weather2;
+    }
+
+
+//     foreach($inputs['test']['order'] as $test){
+//         echo $test;
+//
+// }
+
+    // echo $yummy->toppings[2]->id
+
+//     foreach($arr as $key => &$val){
+//     $val['color'] = 'red';
+// }
+
+   //  $cars = array
+   // (
+   // array("Volvo",22,18),
+   // array("BMW",15,13),
+   // array("Saab",5,2),
+   // array("Land Rover",17,15)
+   // );
+
+
+    // $unix_timestamp = $_POST['timestamp'];
+    // $datetime = new DateTime("@$unix_timestamp");
+    // // Display GMT datetime
+    // echo $datetime->format('d-m-Y H:i:s');
 
 
     public function minLong($longitude)

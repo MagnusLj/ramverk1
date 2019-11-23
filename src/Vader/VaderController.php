@@ -95,7 +95,9 @@ class VaderController implements ContainerInjectableInterface
 
         $vader = $this->di->get("vader");
 
-        $IPInfo = $vader->checkIP($theIP);
+        $coordinates = $vader->checkCoordinates($theIP);
+
+        $weather = $vader->checkWeather($coordinates['latitude'], $coordinates['longitude']);
 
         // $latitude = $IPInfo['latitude'];
         // $longitude = $IPInfo['longitude'];
@@ -108,7 +110,13 @@ class VaderController implements ContainerInjectableInterface
         // $var = 5;
         // $var_is_greater_than_two = ($var > 2 ? true : false);
 
-        var_dump($IPInfo);
+        var_dump($coordinates);
+
+        // var_dump($weather['daily']);
+
+        $weather2 = $vader->checkWeather2($weather['daily']);
+
+        var_dump($weather2);
         // $session->set("ip1", "ip2");
 
         // $hostname = $session->get("hostname");

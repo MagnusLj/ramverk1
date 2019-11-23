@@ -32,7 +32,7 @@ namespace Anax\View;
 <p>Continent: <?= $continent_name ?></p>
 <p>Position: Latitude <?= $latitude ?>, longitude <?= $longitude ?></p>
 
-
+<a href="https://darksky.net/poweredby/">Powered by Darksky</a>
 
 
 <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=<?= $mapLink ?> style="border: 1px solid black"></iframe><br/>
