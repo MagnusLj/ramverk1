@@ -1,5 +1,5 @@
 <?php
-namespace Malm18\IPChecker;
+namespace Malm18\Vader;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
@@ -22,24 +22,23 @@ class VaderController implements ContainerInjectableInterface
 
     public function indexActionGet() : object
     {
+        $vader = $this->di->get("vader");
         // $session = $this->di->session;
-        $IPHandler = new IPHandler();
 
-        $ownIP = $IPHandler->checkOwnIP();
+        $ownIP = $vader->checkOwnIP();
 
 
 
         $data = [
             "ownIP" => $ownIP
         ];
-        $vader = $this->di->get("vader");
         // $parenting = $this->di->vader;
         $parenting = $vader->parenting();
         echo $parenting;
         // Add content as a view and then render the page
         $page = $this->di->get("page");
 
-        $page->add("ipChecker/vader", $data);
+        $page->add("vader/vader", $data);
 
         return $page->render();
     }
@@ -49,7 +48,8 @@ class VaderController implements ContainerInjectableInterface
     public function indexActionPost() : object
     {
         $session = $this->di->session;
-        $IPHandler = new IPHandler();
+        $vader = $this->di->get("vader");
+        // $IPHandler = new IPHandler();
         $request = $this->di->request;
         $response = $this->di->response;
         $theIP = $request->getPost("ip1");
@@ -70,8 +70,7 @@ class VaderController implements ContainerInjectableInterface
             // $session->set("city", $IPInfo['city']);
             // $session->set("country_name", $IPInfo['country_name']);
         }
-
-           return $response->redirect("ip-checker/vaderResultPage");
+           return $response->redirect("vader/resultpage");
     }
 
 
@@ -88,23 +87,24 @@ class VaderController implements ContainerInjectableInterface
 
         $theIP = $session->get("ip1");
 
-        $IPHandler = new IPHandler();
+        // $vader = $this->di->get("vader");
+        // $IPHandler = new IPHandler();
 
         $vader = $this->di->get("vader");
 
-        $IPInfo = $IPHandler->checkIP($theIP);
+        $IPInfo = $vader->checkIP($theIP);
 
         $latitude = $IPInfo['latitude'];
         $longitude = $IPInfo['longitude'];
-        $minLong = $IPHandler->minLong($IPInfo['longitude']);
-        $maxLong = $IPHandler->maxLong($IPInfo['longitude']);
-        $minLat = $IPHandler->minLat($IPInfo['latitude']);
-        $maxLat = $IPHandler->maxLat($IPInfo['latitude']);
+        $minLong = $vader->minLong($IPInfo['longitude']);
+        $maxLong = $vader->maxLong($IPInfo['longitude']);
+        $minLat = $vader->minLat($IPInfo['latitude']);
+        $maxLat = $vader->maxLat($IPInfo['latitude']);
 
         // echo("$latitude");
         // echo($latitude);
 
-        $mapLink = $IPHandler->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
+        $mapLink = $vader->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
 
         // $var = 5;
         // $var_is_greater_than_two = ($var > 2 ? true : false);
@@ -137,7 +137,7 @@ class VaderController implements ContainerInjectableInterface
         // $data = [
         //     "content" => "HELLO!"
         // ];
-        $page->add("ipChecker/vaderResultPage", $data);
+        $page->add("vader/resultPage", $data);
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");

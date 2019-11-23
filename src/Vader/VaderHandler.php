@@ -1,6 +1,6 @@
 <?php
 
-namespace Malm18\IPChecker;
+namespace Malm18\Vader;
 
 class VaderHandler
 {

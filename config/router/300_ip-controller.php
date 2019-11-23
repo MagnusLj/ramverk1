@@ -14,15 +14,5 @@ return [
             "mount" => "ip-json-checker",
             "handler" => "\Malm18\IPChecker\IPJsonController",
         ],
-        [
-            "info" => "Väder.",
-            "mount" => "vader",
-            "handler" => "\Malm18\IPChecker\VaderController",
-        ],
-        [
-            "info" => "JSON-väder.",
-            "mount" => "json-vader",
-            "handler" => "\Malm18\IPChecker\JSONVaderController",
-        ],
     ]
 ];
