@@ -58,5 +58,15 @@ return [
             "url" => "ip-json-checker/ipJsonChecker",
             "title" => "Kolla IP-adress.",
         ],
+        [
+            "text" => "Väder",
+            "url" => "vader",
+            "title" => "Blir det ruskigt måntro?",
+        ],
+        [
+            "text" => "JSON-väder",
+            "url" => "json-vader/JSONVader",
+            "title" => "JSON-väder",
+        ],
     ],
 ];
