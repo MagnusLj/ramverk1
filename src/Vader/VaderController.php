@@ -69,6 +69,7 @@ class VaderController implements ContainerInjectableInterface
             // $session->set("longitude", $IPInfo['longitude']);
             // $session->set("city", $IPInfo['city']);
             // $session->set("country_name", $IPInfo['country_name']);
+            // var_dump($session);
         }
            return $response->redirect("vader/resultpage");
     }
@@ -87,6 +88,8 @@ class VaderController implements ContainerInjectableInterface
 
         $theIP = $session->get("ip1");
 
+        var_dump($theIP);
+
         // $vader = $this->di->get("vader");
         // $IPHandler = new IPHandler();
 
@@ -94,22 +97,18 @@ class VaderController implements ContainerInjectableInterface
 
         $IPInfo = $vader->checkIP($theIP);
 
-        $latitude = $IPInfo['latitude'];
-        $longitude = $IPInfo['longitude'];
-        $minLong = $vader->minLong($IPInfo['longitude']);
-        $maxLong = $vader->maxLong($IPInfo['longitude']);
-        $minLat = $vader->minLat($IPInfo['latitude']);
-        $maxLat = $vader->maxLat($IPInfo['latitude']);
-
-        // echo("$latitude");
-        // echo($latitude);
-
-        $mapLink = $vader->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
+        // $latitude = $IPInfo['latitude'];
+        // $longitude = $IPInfo['longitude'];
+        // $minLong = $vader->minLong($IPInfo['longitude']);
+        // $maxLong = $vader->maxLong($IPInfo['longitude']);
+        // $minLat = $vader->minLat($IPInfo['latitude']);
+        // $maxLat = $vader->maxLat($IPInfo['latitude']);
+        // $mapLink = $vader->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
 
         // $var = 5;
         // $var_is_greater_than_two = ($var > 2 ? true : false);
 
-        // var_dump($IPInfo);
+        var_dump($IPInfo);
         // $session->set("ip1", "ip2");
 
         // $hostname = $session->get("hostname");
@@ -120,18 +119,23 @@ class VaderController implements ContainerInjectableInterface
         // $type = $session->get("type");
 
         // var_dump($session);
-        $data = [
-            "ip1" => $theIP,
-            "city" => $IPInfo['city'],
-            "country_name" => $IPInfo['country_name'],
-            "latitude" => $IPInfo['latitude'],
-            "longitude" => $IPInfo['longitude'],
-            "mapLink" => $mapLink,
-            "continent_name" => $IPInfo['continent_name'],
-            "region_name" => $IPInfo['region_name'],
-            // "calling_code" => $IPInfo['location']['calling_code'],
-            "type" => $IPInfo['type']
-        ];
+
+
+
+        // $data = [
+        //     "ip1" => $theIP,
+        //     "city" => $IPInfo['city'],
+        //     "country_name" => $IPInfo['country_name'],
+        //     "latitude" => $IPInfo['latitude'],
+        //     "longitude" => $IPInfo['longitude'],
+        //     "mapLink" => $mapLink,
+        //     "continent_name" => $IPInfo['continent_name'],
+        //     "region_name" => $IPInfo['region_name'],
+        //     "type" => $IPInfo['type']
+        // ];
+
+        $data = [];
+
         // Add content as a view and then render the page
         $page = $this->di->get("page");
         // $data = [

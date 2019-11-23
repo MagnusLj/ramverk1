@@ -35,10 +35,29 @@ class VaderHandler
             // echo $response . PHP_EOL;
             return $response2;
         } else {
-            $response = array("type" => "not valid ip", "ip" => "", "latitude"=> "", "longitude"=> "",
-            "city" => "", "country_name" => "", "region_name" => "", "continent_name" => "", "location['country_code']" => "");
-            // $response2 = json_decode($response, true);
-            return $response;
+            // $response = array("type" => "not valid ip", "ip" => "", "latitude"=> "", "longitude"=> "",
+            // "city" => "", "country_name" => "", "region_name" => "", "continent_name" => "", "location['country_code']" => "");
+            // // $response2 = json_decode($response, true);
+            // return $response;
+            $url1 = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=';
+
+            // $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
+            // $this->ipstackKey = $keys["ipstackKey"];
+            // $api_key = $this->ipstackKey;
+            $request_url = $url1 . $theIP . '&format=json&limit=1&email=a@b.se';
+            // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
+            $curl = curl_init($request_url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
+        //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
+        //   'Content-Type: application/json'
+        // ]);
+            $response = curl_exec($curl);
+            $response2 = json_decode($response, true);
+            curl_close($curl);
+            // echo $response . PHP_EOL;
+            return $response2;
         }
     }
 
