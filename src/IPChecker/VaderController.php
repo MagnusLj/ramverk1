@@ -16,7 +16,7 @@ use Anax\Commons\ContainerInjectableTrait;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class Vader implements ContainerInjectableInterface
+class VaderController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -32,7 +32,10 @@ class Vader implements ContainerInjectableInterface
         $data = [
             "ownIP" => $ownIP
         ];
-
+        $vader = $this->di->get("vader");
+        // $parenting = $this->di->vader;
+        $parenting = $vader->parenting();
+        echo $parenting;
         // Add content as a view and then render the page
         $page = $this->di->get("page");
 
@@ -68,7 +71,7 @@ class Vader implements ContainerInjectableInterface
             // $session->set("country_name", $IPInfo['country_name']);
         }
 
-           return $response->redirect("ip-checker/resultpage");
+           return $response->redirect("ip-checker/vaderResultPage");
     }
 
 
@@ -86,6 +89,8 @@ class Vader implements ContainerInjectableInterface
         $theIP = $session->get("ip1");
 
         $IPHandler = new IPHandler();
+
+        $vader = $this->di->get("vader");
 
         $IPInfo = $IPHandler->checkIP($theIP);
 
@@ -132,7 +137,7 @@ class Vader implements ContainerInjectableInterface
         // $data = [
         //     "content" => "HELLO!"
         // ];
-        $page->add("ipChecker/resultPage", $data);
+        $page->add("ipChecker/vaderResultPage", $data);
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");

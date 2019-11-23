@@ -25,6 +25,6 @@ namespace Anax\View;
 
 
 <form method="post">
-    <input type="text" name="ip1" value=<?= $ownIP ?>>
-    <input type="submit" name="ipsubmit" value="Kolla">
+    <input type="text" name="thePlace">
+    <input type="submit" name="placesubmit" value="Kolla">
 </form>

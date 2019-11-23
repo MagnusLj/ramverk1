@@ -17,12 +17,12 @@ return [
         [
             "info" => "Väder.",
             "mount" => "vader",
-            "handler" => "\Malm18\IPChecker\Vader",
+            "handler" => "\Malm18\IPChecker\VaderController",
         ],
         [
             "info" => "JSON-väder.",
             "mount" => "json-vader",
-            "handler" => "\Malm18\IPChecker\JsonVader",
+            "handler" => "\Malm18\IPChecker\JSONVaderController",
         ],
     ]
 ];

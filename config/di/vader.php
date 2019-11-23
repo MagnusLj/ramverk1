@@ -7,8 +7,8 @@ return [
         "vader" => [
             "shared" => true,
             "callback" => function () {
-                $vader = new \Malm18\ipChecker\Vader();
-                return vader;
+                $vader = new \Malm18\ipChecker\VaderHandler();
+                return $vader;
             },
         ],
     ],

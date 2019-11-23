@@ -16,7 +16,7 @@ use Anax\Commons\ContainerInjectableTrait;
  * The controller is mounted on a particular route and can then handle all
  * requests for that mount point.
  */
-class JSONVader implements ContainerInjectableInterface
+class JSONVaderController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
