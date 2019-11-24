@@ -110,20 +110,32 @@ class VaderHandler
         $weather2 = [];
         $locale = 'sv-SE.utf8';
         setlocale(LC_TIME, $locale);
+        $i=0;
         foreach ($weather['data'] as $day) {
             // array_push($weather2, $day['time']);
             $unix_timestamp = $day['time'];
-            echo $unix_timestamp;
             $datetime = date('Y-m-d l', $unix_timestamp);
-            // $datetime2 = strftime('%d %B %Y %A', strtotime($datetime));
             $datetime2 = strftime('%A %d %B', strtotime($datetime));
+
+            // $unix_timestamp = $day['time'];
+            // $datetime = date('Y-m-d l', $unix_timestamp);
+            // $datetime2 = strftime('%A %d %B', strtotime($datetime));
+
             // $datetime2 = $datetime->format('d/m');
             // $weather2[$i] = (['day'] => [$day]);
-            array_push($weather2, $datetime2);
+            $weather2[$i]['time'] = $datetime2;
+            $weather2[$i]['summary'] = $day['summary'];
+            $weather2[$i]['temperatureMin'] = round($day['temperatureMin']);
+            $weather2[$i]['temperatureMax'] = round($day['temperatureMax']);
+            $weather2[$i]['precipProbability'] = 100 * ($day['precipProbability']);
+            $weather2[$i]['precipType'] = $day['precipType'];
+            $weather2[$i]['windSpeed'] = round($day['windSpeed']);
+            $weather2[$i]['windBearing'] = $day['windBearing'];
+            // array_push($weather2, $datetime2);
+            $i=$i+1;
         }
         return $weather2;
     }
-
 
 //     foreach($inputs['test']['order'] as $test){
 //         echo $test;

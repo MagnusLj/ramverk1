@@ -18,26 +18,19 @@ namespace Anax\View;
 // echo $minLong . " ";
 // echo $mapLink;
 
-?><h1>Här är väderrapporten för <?= $theIP ?></h1>
+?><h1>Here are the results for <?= $ip1 ?></h1>
 
 <!-- <h1>Guess my number</h1> -->
 
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' *.mycdn.com *openstreetmap.org* 'unsafe-inline';">
 
-<div class="list-group">
-      <?php foreach ($weather2 as $day) { ?>
-        <div class="list-group-item clearfix">
-          <?php echo "<h5>" . $day['time'] . "</h5>";
-                echo $day['summary'] . "<br><br>";
-                echo "<b>Temperatur min:</b> " . $day['temperatureMin'] . " grader.<br>";
-                echo "<b>Temperatur max:</b> " . $day['temperatureMax'] . " grader.<br>";
-                echo "<b>Risk för nederbörd:</b> " . $day['precipProbability'] . " %.<br>";
-                echo "<b>Vindhastighet:</b> " . $day['windSpeed'] . " m/s.<br>";
-                echo "<b>Vindriktning:</b> " . $day['precipProbability'] . " grader.<br><br><br>";
-          ?>
-        </div>
-      <?php } ?>
-    </div>
+
+<p>Type: <?= $type ?></p>
+<p>City: <?= $city ?></p>
+<p>Region: <?= $region_name ?></p>
+<p>Country: <?= $country_name ?></p>
+<p>Continent: <?= $continent_name ?></p>
+<p>Position: Latitude <?= $latitude ?>, longitude <?= $longitude ?></p>
 
 
 

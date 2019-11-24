@@ -142,7 +142,11 @@ class VaderController implements ContainerInjectableInterface
         //     "type" => $IPInfo['type']
         // ];
 
-        $data = [];
+        $data = [
+            "weather2" => $weather2,
+            "theIP" => $theIP
+        ]
+            ;
 
         // Add content as a view and then render the page
         $page = $this->di->get("page");
