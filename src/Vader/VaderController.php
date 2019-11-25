@@ -29,6 +29,8 @@ class VaderController implements ContainerInjectableInterface
 
 
 
+
+
         $data = [
             "ownIP" => $ownIP
         ];
@@ -53,6 +55,7 @@ class VaderController implements ContainerInjectableInterface
         $request = $this->di->request;
         $response = $this->di->response;
         $theIP = $request->getPost("ip1");
+        $pastOrFuture = $request->getPost("pastOrFuture");
 
         if (!is_null($theIP)) {
             // $IPInfo = $IPHandler->checkIP($theIP);
@@ -63,6 +66,7 @@ class VaderController implements ContainerInjectableInterface
             // var_dump($IPInfo2);
             // var_dump($IPInfo['ip']);
             $session->set("ip1", $theIP);
+            $session->set("pastOrFuture", $pastOrFuture);
             // $session->set("hostname", $IPInfo['hostname']);
             // $session->set("type", $IPInfo['type']);
             // $session->set("latitude", $IPInfo['latitude']);
@@ -88,35 +92,49 @@ class VaderController implements ContainerInjectableInterface
 
         $theIP = $session->get("ip1");
 
-        var_dump($theIP);
+        $pastOrFuture = $session->get("pastOrFuture");
+
+        // var_dump($theIP);
 
         // $vader = $this->di->get("vader");
         // $IPHandler = new IPHandler();
 
         $vader = $this->di->get("vader");
 
+        $IPHandler = new \Malm18\IPChecker\IPHandler();
+
         $coordinates = $vader->checkCoordinates($theIP);
 
-        $weather = $vader->checkWeather($coordinates['latitude'], $coordinates['longitude']);
+        $latitude = $coordinates['latitude'];
+        $longitude = $coordinates['longitude'];
 
-        // $latitude = $IPInfo['latitude'];
-        // $longitude = $IPInfo['longitude'];
-        // $minLong = $vader->minLong($IPInfo['longitude']);
-        // $maxLong = $vader->maxLong($IPInfo['longitude']);
-        // $minLat = $vader->minLat($IPInfo['latitude']);
-        // $maxLat = $vader->maxLat($IPInfo['latitude']);
-        // $mapLink = $vader->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
+        $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
+
+        // print_r($weather);
+
+        $minLat = $IPHandler->minLat($latitude);
+        $maxLat = $IPHandler->maxLat($latitude);
+        $minLong = $IPHandler->minLong($longitude);
+        $maxLong = $IPHandler->maxLong($longitude);
+
+        $mapLink = $IPHandler->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
 
         // $var = 5;
         // $var_is_greater_than_two = ($var > 2 ? true : false);
 
-        var_dump($coordinates);
+        // var_dump($coordinates);
 
-        // var_dump($weather['daily']);
 
-        $weather2 = $vader->checkWeather2($weather['daily']);
+// framåt
+// bakåt
+//         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
+//         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
 
-        var_dump($weather2);
+        // print_r($weather);
+
+        $weather2 = $vader->checkWeather2($weather);
+
+        // var_dump($weather2);
         // $session->set("ip1", "ip2");
 
         // $hostname = $session->get("hostname");
@@ -144,7 +162,8 @@ class VaderController implements ContainerInjectableInterface
 
         $data = [
             "weather2" => $weather2,
-            "theIP" => $theIP
+            "theIP" => $theIP,
+            "mapLink" => $mapLink
         ]
             ;
 

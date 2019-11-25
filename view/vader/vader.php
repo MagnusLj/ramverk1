@@ -24,8 +24,8 @@ namespace Anax\View;
 
 
 <form method="post">
-    <input type="radio" name="when" value="forwards"> en vecka framåt<br>
-    <input type="radio" name="when" value="backwards"> 30 dagar bakåt<br><br>
+    <input type="radio" name="pastOrFuture" value="future" checked> en vecka framåt<br>
+    <input type="radio" name="pastOrFuture" value="past"> 30 dagar bakåt<br><br>
     <input type="text" name="ip1">
     <input type="submit" name="ipsubmit" value="Kolla">
 </form>

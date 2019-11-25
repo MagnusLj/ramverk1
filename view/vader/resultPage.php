@@ -20,6 +20,8 @@ namespace Anax\View;
 
 ?><h1>Här är väderrapporten för <?= $theIP ?></h1>
 
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=<?= $mapLink ?> style="border: 1px solid black"></iframe><br/><br/>
+
 <!-- <h1>Guess my number</h1> -->
 
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' *.mycdn.com *openstreetmap.org* 'unsafe-inline';">
@@ -42,7 +44,7 @@ namespace Anax\View;
 
 
 
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=<?= $mapLink ?> style="border: 1px solid black"></iframe><br/>
+
 <!-- <small><a href="https://www.openstreetmap.org/?mlat=55.8264&amp;mlon=13.3127#map=10/55.8264/13.3127">Visa större karta</a></small> -->
 
 <!-- <form method="post"> lat  55: 0.260   0,2587

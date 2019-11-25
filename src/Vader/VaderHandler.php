@@ -75,17 +75,51 @@ class VaderHandler
 
 
 
-    public function checkWeather($latitude, $longitude)
+    // public function checkWeather($latitude, $longitude)
+    // {
+    //
+    //     $url1 = 'https://api.darksky.net/forecast/';
+    //
+    //     $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
+    //     $api_key = $keys["darkskyKey"];
+    //     $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
+    //     $request_url = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
+    //     // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
+    //     $curl = curl_init($request_url);
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // // curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    // //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
+    // //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
+    // //   'Content-Type: application/json'
+    // // ]);
+    //     $response = curl_exec($curl);
+    //     $response2 = json_decode($response, true);
+    //     curl_close($curl);
+    //     // $coordinates['latitude'] = $response2[0]['lat'];
+    //     // $coordinates['longitude'] = $response2[0]['lon'];
+    //     // echo $response . PHP_EOL;
+    //     return $response2;
+    //
+    //     // $coordinates = "Latitud: " . $latitude . ", longitud: " . $longitude;
+    //     // return $coordinates;
+    // }
+
+
+
+    public function checkWeather($latitude, $longitude, $pastOrFuture)
     {
 
         $url1 = 'https://api.darksky.net/forecast/';
 
         $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
         $api_key = $keys["darkskyKey"];
-        $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=auto';
-        $request_url = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
+        $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
+
+        if ($pastOrFuture=="future") {
+
+        $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
         // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
-        $curl = curl_init($request_url);
+        $curl = curl_init($requestUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     // curl_setopt($curl, CURLOPT_HTTPHEADER, [
     //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
@@ -98,11 +132,180 @@ class VaderHandler
         // $coordinates['latitude'] = $response2[0]['lat'];
         // $coordinates['longitude'] = $response2[0]['lon'];
         // echo $response . PHP_EOL;
-        return $response2;
+        return $response2['daily']['data'];
+    } else {
+
+
+
+
+
+
+        // array of curl handles
+        $multiCurl = array();
+        // data to be returned
+        $response = array();
+        // multi handle
+        $mh = curl_multi_init();
+
+
+
+
+        // for ($i=0; $i < 30; $i++) {
+        //     $unixTime = time() - ($i * 24 * 60 * 60);
+        //     $multiRequests[] = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','.$unixTime . $end_stuff;
+        // }
+
+
+
+
+
+        for ($i=0; $i < 3; $i++) {
+          $unixTime = time() - ($i * 24 * 60 * 60);
+          $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','. $unixTime . $end_stuff;
+          $multiCurl[$i] = curl_init();
+          curl_setopt($multiCurl[$i], CURLOPT_URL,$requestUrl);
+          curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
+          curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,1);
+          curl_multi_add_handle($mh, $multiCurl[$i]);
+        }
+        $index=null;
+        do {
+          curl_multi_exec($mh,$index);
+        } while($index > 0);
+        // get content and remove handles
+        foreach($multiCurl as $k => $ch) {
+          $response[$k] = curl_multi_getcontent($ch);
+          curl_multi_remove_handle($mh, $ch);
+            }
+            // close
+            curl_multi_close($mh);
+
+            // $response2 = json_decode($response, true);
+
+            $daily = [];
+            $anArray = [];
+            $data = [];
+            $data2 = [];
+            $i=0;
+            foreach ($response as $item) {
+                $data = json_decode($item, true);
+                $data2[$i] = $data['daily']['data'][0];
+                // $data[$i] = $item;
+                $i=$i+1;
+            }
+            // $daily['data'] = $data;
+            // $anArray['daily'] = $daily;
+
+            // return $data[0]['daily']['data'];
+            // $response2 = json_decode($data, true);
+            return $data2;
+
+
+          //   $mh = curl_multi_init();
+          //   $results = [];
+          //
+          //   for ($i=0; $i < 3; $i++) {
+          //     $unixTime = time() - ($i * 24 * 60 * 60);
+          //     $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','.$unixTime . $end_stuff;
+          //     $ch_[$i] = curl_init($requestUrl);
+          //     curl_setopt($ch_[$i], CURLOPT_RETURNTRANSFER, true);
+          //     curl_multi_add_handle($mh, $ch_[$i]);
+          // }
+          //
+          // $running = null;
+          // do {
+          //   curl_multi_exec($mh, $running);
+          // } while ($running);
+          //
+          // for ($i=0; $i < 3; $i++) {
+          //     array_push($results, curl_multi_getcontent($ch_[$i]));
+          // }
+
+
+
+            //
+            // // with curl_multi, you only have to wait for the longest-running request
+            //
+            // // build the individual requests as above, but do not execute them
+            // $ch_1 = curl_init('http://webservice.one.com/');
+            // $ch_2 = curl_init('http://webservice.two.com/');
+            // curl_setopt($ch_1, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($ch_2, CURLOPT_RETURNTRANSFER, true);
+            //
+            // // build the multi-curl handle, adding both $ch
+            // $mh = curl_multi_init();
+            // curl_multi_add_handle($mh, $ch_1);
+            // curl_multi_add_handle($mh, $ch_2);
+            //
+            // // execute all queries simultaneously, and continue when all are complete
+            // $running = null;
+            // do {
+            //   curl_multi_exec($mh, $running);
+            // } while ($running);
+            //
+            //
+            //
+            // // all of our requests are done, we can now access the results
+            // $response_1 = curl_multi_getcontent($ch_1);
+            // $response_2 = curl_multi_getcontent($ch_2);
+            // echo "$response_1 $response_2"; // same output as first example
+            //
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 
         // $coordinates = "Latitud: " . $latitude . ", longitud: " . $longitude;
         // return $coordinates;
     }
+
+
+
+
+
+    public function checkPastWeather($latitude, $longitude)
+{
+    $url1 = 'https://api.darksky.net/forecast/';
+
+    $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
+    $api_key = $keys["darkskyKey"];
+    $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
+
+    $multiRequests = [];
+    #future weather
+    if ($this->time === "future") {
+        for ($i=0; $i < 7; $i++) {
+            $unixTime = time() + ($i * 24 * 60 * 60);
+            $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
+        }
+    }
+    #previous weather
+    if ($this->time === "past") {
+        for ($i=0; $i < 30; $i++) {
+            $unixTime = time() - ($i * 24 * 60 * 60);
+            $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
+        }
+    }
+    $weather = $this->requester->multiRequest($multiRequests);
+    foreach ($weather as $key => $value) {
+        $weather[$key] = json_decode(stripslashes($value), true);
+    }
+    return $weather;
+}
+
+
+
 
 
     public function checkWeather2($weather)
@@ -111,7 +314,7 @@ class VaderHandler
         $locale = 'sv-SE.utf8';
         setlocale(LC_TIME, $locale);
         $i=0;
-        foreach ($weather['data'] as $day) {
+        foreach ($weather as $day) {
             // array_push($weather2, $day['time']);
             $unix_timestamp = $day['time'];
             $datetime = date('Y-m-d l', $unix_timestamp);
