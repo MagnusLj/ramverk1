@@ -331,7 +331,7 @@ class VaderHandler
             $weather2[$i]['temperatureMin'] = round($day['temperatureMin']);
             $weather2[$i]['temperatureMax'] = round($day['temperatureMax']);
             $weather2[$i]['precipProbability'] = 100 * ($day['precipProbability']);
-            $weather2[$i]['precipType'] = $day['precipType'];
+            // $weather2[$i]['precipType'] = $day['precipType'];
             $weather2[$i]['windSpeed'] = round($day['windSpeed']);
             $weather2[$i]['windBearing'] = $day['windBearing'];
             // array_push($weather2, $datetime2);

@@ -103,27 +103,41 @@ class JSONVaderController implements ContainerInjectableInterface
     public function indexActionGet()
     {
         $request = $this->di->request;
+        $vader = $this->di->get("vader");
         $theIP = $this->di->get("request")->getGet("ip");
+        $pastOrFuture = $this->di->get("request")->getGet("pastOrFuture");
 
-        $IPHandler = new IPHandler();
+        $IPHandler = new \Malm18\IPChecker\IPHandler();
+
+        $coordinates = $vader->checkCoordinates($theIP);
+
+        $latitude = $coordinates['latitude'];
+        $longitude = $coordinates['longitude'];
+
         // $IPInfo = $IPHandler->checkIP($theIP);
 
-        $IPInfo = $IPHandler->checkIP($theIP);
+        // $IPInfo = $IPHandler->checkIP($theIP);
+
+        $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
 
         // $largeMapLink = $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']);
 
-        $largeMapLink = ($IPInfo['latitude'] ? $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']) : "");
+        $largeMapLink = ($latitude ? $IPHandler->largeMapLink($latitude, $longitude) : "");
+
+        $weather2 = $vader->checkWeather2($weather);
 
         // $message = 'Hello '.($user->is_logged_in() ? $user->get('first_name') : 'Guest');
 
-        $IPInfo2 = array("ip address" => $IPInfo['ip'], "type" => $IPInfo['type'], "city" => $IPInfo['city'],
-        "country" => $IPInfo['country_name'], "region_name" => $IPInfo['region_name'], "continent_name" => $IPInfo['continent_name'],
-        "latitude" => $IPInfo['latitude'], "longitude" => $IPInfo['longitude'],
-        "map_link" => $largeMapLink);
+        // $IPInfo2 = array("time" => $weather2[0]['time'], "summary" => $weather2['summary'], "temperatureMin" => $weather2['temperatureMin'],
+        // "temperatureMax" => $weather2['temperatureMax'], "precipProbability" => $weather2['precipProbability'], "windSpeed" => $weather2['windSpeed'],
+        // "windBearing" => $weather2['windBearing'], "latitude" => $latitude, "longitude" => $longitude,
+        // "map_link" => $largeMapLink);
         //
         // $json = json_encode($IPInfo2);
 
-        return [$IPInfo2];
+        $weather2['mapLink'] = $largeMapLink;
+
+        return [$weather2];
     }
 
 //     $var = 5;
@@ -138,7 +152,7 @@ class JSONVaderController implements ContainerInjectableInterface
         // $hostname = $session->get("hostname");
         // $type = $session->get("type");
         // var_dump($session);
-        $IPHandler = new IPHandler();
+        $IPHandler = new \Malm18\IPChecker\IPHandler();
 
         $ownIP = $IPHandler->checkOwnIP();
 
@@ -150,7 +164,7 @@ class JSONVaderController implements ContainerInjectableInterface
         // $data = [
         //     "content" => "HELLO!"
         // ];
-        $page->add("ipChecker/JsonVader", $data);
+        $page->add("Vader/JsonVader", $data);
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");
@@ -179,22 +193,23 @@ class JSONVaderController implements ContainerInjectableInterface
     // }
 
 
-    public function ipJsonCheckerActionPost() : object
+    public function JsonVaderActionPost() : object
     {
            // $session = $this->di->session;
-           $IPHandler = new IPHandler();
+           $IPHandler = new \Malm18\IPChecker\IPHandler();
            $request = $this->di->request;
            $response = $this->di->response;
            $theIP = $request->getPost("ip1");
+           $pastOrFuture = $request->getPost("pastOrFuture");
 
-        if (!is_null($theIP)) {
-            $IPInfo = $IPHandler->checkIP($theIP);
-             // $session->set("ip1", $IPInfo['ipaddress']);
-             // $session->set("hostname", $IPInfo['hostname']);
-             // $session->set("type", $IPInfo['type']);
-        }
+        // if (!is_null($theIP)) {
+        //     $IPInfo = $IPHandler->checkIP($theIP);
+        //      // $session->set("ip1", $IPInfo['ipaddress']);
+        //      // $session->set("hostname", $IPInfo['hostname']);
+        //      // $session->set("type", $IPInfo['type']);
+        // }
 
-           return $response->redirect("ip-json-checker?ip=$theIP");
+           return $response->redirect("json-vader?ip=$theIP&pastOrFuture=$pastOrFuture");
     }
 
     // public function jsonResultPageActionGet() : object

@@ -134,6 +134,8 @@ class VaderController implements ContainerInjectableInterface
 
         $weather2 = $vader->checkWeather2($weather);
 
+        // print_r($weather2);
+
         // var_dump($weather2);
         // $session->set("ip1", "ip2");
 
