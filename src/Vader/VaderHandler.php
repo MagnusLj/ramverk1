@@ -6,10 +6,10 @@ class VaderHandler
 {
 
 
-    public function parenting()
-    {
-        return "I am your father";
-    }
+    // public function parenting()
+    // {
+    //     return "I am your father";
+    // }
 
 
 
@@ -432,9 +432,9 @@ class VaderHandler
     }
 
 
-    public function checkOwnIP()
-    {
-        $remote_addr = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR']:'127.0.0.1';
-        return $remote_addr;
-    }
+    // public function checkOwnIP()
+    // {
+    //     $remote_addr = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR']:'127.0.0.1';
+    //     return $remote_addr;
+    // }
 }

@@ -25,18 +25,18 @@ class VaderController implements ContainerInjectableInterface
         $vader = $this->di->get("vader");
         // $session = $this->di->session;
 
-        $ownIP = $vader->checkOwnIP();
+        // $ownIP = $vader->checkOwnIP();
 
 
 
 
 
         $data = [
-            "ownIP" => $ownIP
+            // "ownIP" => $ownIP
         ];
         // $parenting = $this->di->vader;
-        $parenting = $vader->parenting();
-        echo $parenting;
+        // $parenting = $vader->parenting();
+        // echo $parenting;
         // Add content as a view and then render the page
         $page = $this->di->get("page");
 

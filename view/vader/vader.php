@@ -15,7 +15,7 @@ namespace Anax\View;
 <!-- <h1>Guess my number</h1> -->
 
 
-<p>Skriv in en ip-adress eller en plats, välj om du vill se framåt eller bakåt och tryck på Kolla för att få information om läderveken</p>
+<p>Skriv in en ip-adress eller en plats, välj om du vill se framåt eller bakåt och tryck på Kolla för att få information om läderveken.</p>
 
 
 
