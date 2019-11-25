@@ -63,10 +63,14 @@ class VaderHandler
         //   'Content-Type: application/json'
         // ]);
             $response = curl_exec($curl);
+
+            if (strlen($response) > 10) {
+
             $response2 = json_decode($response, true);
             curl_close($curl);
             $coordinates['latitude'] = $response2[0]['lat'];
             $coordinates['longitude'] = $response2[0]['lon'];
+        }
             // echo $response . PHP_EOL;
             return $coordinates;
         }
@@ -274,35 +278,35 @@ class VaderHandler
 
 
 
-    public function checkPastWeather($latitude, $longitude)
-{
-    $url1 = 'https://api.darksky.net/forecast/';
-
-    $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
-    $api_key = $keys["darkskyKey"];
-    $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
-
-    $multiRequests = [];
-    #future weather
-    if ($this->time === "future") {
-        for ($i=0; $i < 7; $i++) {
-            $unixTime = time() + ($i * 24 * 60 * 60);
-            $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
-        }
-    }
-    #previous weather
-    if ($this->time === "past") {
-        for ($i=0; $i < 30; $i++) {
-            $unixTime = time() - ($i * 24 * 60 * 60);
-            $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
-        }
-    }
-    $weather = $this->requester->multiRequest($multiRequests);
-    foreach ($weather as $key => $value) {
-        $weather[$key] = json_decode(stripslashes($value), true);
-    }
-    return $weather;
-}
+//     public function checkPastWeather($latitude, $longitude)
+// {
+//     $url1 = 'https://api.darksky.net/forecast/';
+//
+//     $keys = require ANAX_INSTALL_PATH . "/config/keys.php";
+//     $api_key = $keys["darkskyKey"];
+//     $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
+//
+//     $multiRequests = [];
+//     #future weather
+//     if ($this->time === "future") {
+//         for ($i=0; $i < 7; $i++) {
+//             $unixTime = time() + ($i * 24 * 60 * 60);
+//             $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
+//         }
+//     }
+//     #previous weather
+//     if ($this->time === "past") {
+//         for ($i=0; $i < 30; $i++) {
+//             $unixTime = time() - ($i * 24 * 60 * 60);
+//             $multiRequests[] = 'https://api.darksky.net/forecast/'.$accessKey .'/'.$details['latitude'].','.$details['longitude'].','.$unixTime.'?exclude=minutely,hourly,daily,flags';
+//         }
+//     }
+//     $weather = $this->requester->multiRequest($multiRequests);
+//     foreach ($weather as $key => $value) {
+//         $weather[$key] = json_decode(stripslashes($value), true);
+//     }
+//     return $weather;
+// }
 
 
 

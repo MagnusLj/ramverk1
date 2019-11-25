@@ -105,6 +105,8 @@ class VaderController implements ContainerInjectableInterface
 
         $coordinates = $vader->checkCoordinates($theIP);
 
+        if ($coordinates) {
+
         $latitude = $coordinates['latitude'];
         $longitude = $coordinates['longitude'];
 
@@ -175,6 +177,11 @@ class VaderController implements ContainerInjectableInterface
         //     "content" => "HELLO!"
         // ];
         $page->add("vader/resultPage", $data);
+
+    } else {
+        $page = $this->di->get("page");
+        $page->add("vader/noResultPage");
+    }
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");

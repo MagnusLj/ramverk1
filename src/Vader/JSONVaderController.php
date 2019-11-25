@@ -111,6 +111,8 @@ class JSONVaderController implements ContainerInjectableInterface
 
         $coordinates = $vader->checkCoordinates($theIP);
 
+        if ($coordinates) {
+
         $latitude = $coordinates['latitude'];
         $longitude = $coordinates['longitude'];
 
@@ -136,6 +138,14 @@ class JSONVaderController implements ContainerInjectableInterface
         // $json = json_encode($IPInfo2);
 
         $weather2['mapLink'] = $largeMapLink;
+
+    } else {
+        $weather2 = [];
+        $weather2['data'] = "No result for you!";
+
+        // $weather2 = json_encode($obj);
+
+    }
 
         return [$weather2];
     }
