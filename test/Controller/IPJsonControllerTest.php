@@ -183,6 +183,22 @@ class IPJsonControllerTest extends TestCase
     }
 
 
+    public function testIpJsonCheckerActionPost2()
+    {
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+        $this->di->set("response", "\Anax\Response\Response");
+        $request->setPost("ip1", "thisisnotanipaddress");
+        $res = $this->controller->ipJsonCheckerActionPost();
+        // $this->assertIsObject($res);
+        // $this->assertInstanceOf("\Anax\Response\Response", $res);
+        $this->assertEquals(null, $res->getBody());
+        // $body = $res->getBody();
+        // $xxx = "IPv4";
+        // $this->assertContains($xxx, $body);
+    }
+
+
     // public function testIndexActionPost()
     // {
     //     global $di;

@@ -370,33 +370,33 @@ class VaderHandler
     // echo $datetime->format('d-m-Y H:i:s');
 
 
-    public function minLong($longitude)
-    {
-
-        $minLong = floatval($longitude)-0.6427;
-        return $minLong;
-    }
-
-    public function maxLong($longitude)
-    {
-
-        $maxLong = floatval($longitude)+0.6427;
-        return $maxLong;
-    }
-
-    public function minLat($latitude)
-    {
-
-        $minLat = (floatval($latitude)) - 0.260;
-        return $minLat;
-    }
-
-    public function maxLat($latitude)
-    {
-
-        $maxLat = (floatval($latitude)) + 0.260;
-        return $maxLat;
-    }
+    // public function minLong($longitude)
+    // {
+    //
+    //     $minLong = floatval($longitude)-0.6427;
+    //     return $minLong;
+    // }
+    //
+    // public function maxLong($longitude)
+    // {
+    //
+    //     $maxLong = floatval($longitude)+0.6427;
+    //     return $maxLong;
+    // }
+    //
+    // public function minLat($latitude)
+    // {
+    //
+    //     $minLat = (floatval($latitude)) - 0.260;
+    //     return $minLat;
+    // }
+    //
+    // public function maxLat($latitude)
+    // {
+    //
+    //     $maxLat = (floatval($latitude)) + 0.260;
+    //     return $maxLat;
+    // }
 
 
     // public function mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong)
@@ -409,27 +409,27 @@ class VaderHandler
     //     return $link;
     // }
 
-    public function mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong)
-    {
-        if ($latitude) {
-            $link = "https://www.openstreetmap.org/export/embed.html?bbox=" . $minLong . "%2C" . $minLat . "%2C" . $maxLong . "%2C" . $maxLat . "&amp;layer=mapnik&amp;marker=" . $latitude . "%2C" . $longitude;
-        } else {
-            $link = "https://www.openstreetmap.org/export/embed.html?bbox=-0.64%2C85%2C0.64%2C90&amp;layer=mapnik&amp;marker=87.5%2C0";
-        }
-
-        return $link;
-    }
-
-    public function largeMapLink($latitude, $longitude)
-    {
-        if ($latitude) {
-            $link = "https://www.openstreetmap.org/?mlat=" . $latitude . "&amp;mlon=" . $longitude . "#map=10/" . $latitude . "/" . $longitude;
-        // <a href="https://www.openstreetmap.org/?mlat=55.8264&amp;mlon=13.3127#map=10/55.8264/13.3127">
-        } else {
-            $link = "https://www.openstreetmap.org";
-        }
-        return $link;
-    }
+    // public function mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong)
+    // {
+    //     if ($latitude) {
+    //         $link = "https://www.openstreetmap.org/export/embed.html?bbox=" . $minLong . "%2C" . $minLat . "%2C" . $maxLong . "%2C" . $maxLat . "&amp;layer=mapnik&amp;marker=" . $latitude . "%2C" . $longitude;
+    //     } else {
+    //         $link = "https://www.openstreetmap.org/export/embed.html?bbox=-0.64%2C85%2C0.64%2C90&amp;layer=mapnik&amp;marker=87.5%2C0";
+    //     }
+    //
+    //     return $link;
+    // }
+    //
+    // public function largeMapLink($latitude, $longitude)
+    // {
+    //     if ($latitude) {
+    //         $link = "https://www.openstreetmap.org/?mlat=" . $latitude . "&amp;mlon=" . $longitude . "#map=10/" . $latitude . "/" . $longitude;
+    //     // <a href="https://www.openstreetmap.org/?mlat=55.8264&amp;mlon=13.3127#map=10/55.8264/13.3127">
+    //     } else {
+    //         $link = "https://www.openstreetmap.org";
+    //     }
+    //     return $link;
+    // }
 
 
     // public function checkOwnIP()
