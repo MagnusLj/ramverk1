@@ -106,82 +106,80 @@ class VaderController implements ContainerInjectableInterface
         $coordinates = $vader->checkCoordinates($theIP);
 
         if ($coordinates) {
+            $latitude = $coordinates['latitude'];
+            $longitude = $coordinates['longitude'];
 
-        $latitude = $coordinates['latitude'];
-        $longitude = $coordinates['longitude'];
+            $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
 
-        $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
+            // print_r($weather);
 
-        // print_r($weather);
+            $minLat = $IPHandler->minLat($latitude);
+            $maxLat = $IPHandler->maxLat($latitude);
+            $minLong = $IPHandler->minLong($longitude);
+            $maxLong = $IPHandler->maxLong($longitude);
 
-        $minLat = $IPHandler->minLat($latitude);
-        $maxLat = $IPHandler->maxLat($latitude);
-        $minLong = $IPHandler->minLong($longitude);
-        $maxLong = $IPHandler->maxLong($longitude);
+            $mapLink = $IPHandler->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
 
-        $mapLink = $IPHandler->mapLink($latitude, $longitude, $minLat, $maxLat, $minLong, $maxLong);
+            // $var = 5;
+            // $var_is_greater_than_two = ($var > 2 ? true : false);
 
-        // $var = 5;
-        // $var_is_greater_than_two = ($var > 2 ? true : false);
-
-        // var_dump($coordinates);
-
-
-// framåt
-// bakåt
-//         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
-//         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
-
-        // print_r($weather);
-
-        $weather2 = $vader->checkWeather2($weather);
-
-        // print_r($weather2);
-
-        // var_dump($weather2);
-        // $session->set("ip1", "ip2");
-
-        // $hostname = $session->get("hostname");
-        // $city = $session->get("city");
-        // $country_name = $session->get("country_name");
-        // $latitude = $session->get("latitude");
-        // $longitude = $session->get("longitude");
-        // $type = $session->get("type");
-
-        // var_dump($session);
+            // var_dump($coordinates);
 
 
+    // framåt
+    // bakåt
+    //         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
+    //         Array ( [daily] => Array ( [data] => Array ( [0] => Array ( [time] => 1574636400
 
-        // $data = [
-        //     "ip1" => $theIP,
-        //     "city" => $IPInfo['city'],
-        //     "country_name" => $IPInfo['country_name'],
-        //     "latitude" => $IPInfo['latitude'],
-        //     "longitude" => $IPInfo['longitude'],
-        //     "mapLink" => $mapLink,
-        //     "continent_name" => $IPInfo['continent_name'],
-        //     "region_name" => $IPInfo['region_name'],
-        //     "type" => $IPInfo['type']
-        // ];
+            // print_r($weather);
 
-        $data = [
-            "weather2" => $weather2,
-            "theIP" => $theIP,
-            "mapLink" => $mapLink
-        ]
-            ;
+            $weather2 = $vader->checkWeather2($weather);
 
-        // Add content as a view and then render the page
-        $page = $this->di->get("page");
-        // $data = [
-        //     "content" => "HELLO!"
-        // ];
-        $page->add("vader/resultPage", $data);
+            // print_r($weather2);
 
-    } else {
-        $page = $this->di->get("page");
-        $page->add("vader/noResultPage");
-    }
+            // var_dump($weather2);
+            // $session->set("ip1", "ip2");
+
+            // $hostname = $session->get("hostname");
+            // $city = $session->get("city");
+            // $country_name = $session->get("country_name");
+            // $latitude = $session->get("latitude");
+            // $longitude = $session->get("longitude");
+            // $type = $session->get("type");
+
+            // var_dump($session);
+
+
+
+            // $data = [
+            //     "ip1" => $theIP,
+            //     "city" => $IPInfo['city'],
+            //     "country_name" => $IPInfo['country_name'],
+            //     "latitude" => $IPInfo['latitude'],
+            //     "longitude" => $IPInfo['longitude'],
+            //     "mapLink" => $mapLink,
+            //     "continent_name" => $IPInfo['continent_name'],
+            //     "region_name" => $IPInfo['region_name'],
+            //     "type" => $IPInfo['type']
+            // ];
+
+            $data = [
+                "weather2" => $weather2,
+                "theIP" => $theIP,
+                "mapLink" => $mapLink
+            ]
+                ;
+
+            // Add content as a view and then render the page
+            $page = $this->di->get("page");
+            // $data = [
+            //     "content" => "HELLO!"
+            // ];
+            $page->add("vader/resultPage", $data);
+        } else {
+            $page = $this->di->get("page");
+            $page->add("vader/noResultPage");
+        }
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");

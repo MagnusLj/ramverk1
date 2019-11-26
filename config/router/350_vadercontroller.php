@@ -12,7 +12,7 @@ return [
         [
             "info" => "JSON-väder.",
             "mount" => "json-vader",
-            "handler" => "\Malm18\Vader\JSONVaderController",
+            "handler" => "\Malm18\Vader\jsonVaderController",
         ],
     ]
 ];

@@ -122,7 +122,7 @@ class IPHandler
         if ($latitude) {
             $link = "https://www.openstreetmap.org/?mlat=" . $latitude . "&amp;mlon=" . $longitude . "#map=10/" . $latitude . "/" . $longitude;
         // <a href="https://www.openstreetmap.org/?mlat=55.8264&amp;mlon=13.3127#map=10/55.8264/13.3127">
-        } 
+        }
         return $link;
     }
 

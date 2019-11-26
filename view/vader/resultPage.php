@@ -27,18 +27,18 @@ namespace Anax\View;
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' *.mycdn.com *openstreetmap.org* 'unsafe-inline';">
 
 <div class="list-group">
-      <?php foreach ($weather2 as $day) { ?>
+        <?php foreach ($weather2 as $day) { ?>
         <div class="list-group-item clearfix">
-          <?php echo "<h5>" . $day['time'] . "</h5>";
+            <?php echo "<h5>" . $day['time'] . "</h5>";
                 echo $day['summary'] . "<br><br>";
                 echo "<b>Temperatur min:</b> " . $day['temperatureMin'] . " grader.<br>";
                 echo "<b>Temperatur max:</b> " . $day['temperatureMax'] . " grader.<br>";
                 echo "<b>Risk för nederbörd:</b> " . $day['precipProbability'] . " %.<br>";
                 echo "<b>Vindhastighet:</b> " . $day['windSpeed'] . " m/s.<br>";
                 echo "<b>Vindriktning:</b> " . $day['precipProbability'] . " grader.<br><br><br>";
-          ?>
+            ?>
         </div>
-      <?php } ?>
+        <?php } ?>
     </div>
 
 

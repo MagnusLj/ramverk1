@@ -65,7 +65,7 @@ return [
         ],
         [
             "text" => "JSON-väder",
-            "url" => "json-vader/JSONVader",
+            "url" => "json-vader/jsonVader",
             "title" => "JSON-väder",
         ],
     ],

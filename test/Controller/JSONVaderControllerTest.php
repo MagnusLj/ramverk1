@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the IpcheckControllerTest.
  */
-class JSONVaderControllerTest extends TestCase
+class jsonVaderControllerTest extends TestCase
 {
     /**
      * Prepare before each test.
@@ -20,7 +20,7 @@ class JSONVaderControllerTest extends TestCase
         $di = $this->di;
         $di->loadServices(ANAX_INSTALL_PATH . "/config/di");
         $di->get('cache')->setPath(ANAX_INSTALL_PATH . "/test/cache");
-        $this->controller = new JSONVaderController();
+        $this->controller = new jsonVaderController();
         $this->controller->setDI($this->di);
         $session = $di->get("session");
     }
@@ -135,14 +135,14 @@ class JSONVaderControllerTest extends TestCase
     /**
      * Test the route "indexPost".
      */
-    public function testJsonVaderActionPost()
+    public function testjsonVaderActionPost()
     {
         $request = $this->di->get("request");
         $response = $this->di->get("response");
         $this->di->set("response", "\Anax\Response\Response");
         $request->setPost("ip1", "208.67.222.222");
         $request->setPost("pastOrFuture", "future");
-        $res = $this->controller->JsonVaderActionPost();
+        $res = $this->controller->jsonVaderActionPost();
         // $this->assertIsObject($res);
         // $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertEquals(null, $res->getBody());
@@ -154,14 +154,14 @@ class JSONVaderControllerTest extends TestCase
     /**
      * Test the route "indexPost".
      */
-    public function testJsonVaderActionPost2()
+    public function testjsonVaderActionPost2()
     {
         $request = $this->di->get("request");
         $response = $this->di->get("response");
         $this->di->set("response", "\Anax\Response\Response");
         $request->setPost("ip1", "208.67.222.222");
         $request->setPost("pastOrFuture", "past");
-        $res = $this->controller->JsonVaderActionPost();
+        $res = $this->controller->jsonVaderActionPost();
         // $this->assertIsObject($res);
         // $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertEquals(null, $res->getBody());
@@ -182,7 +182,7 @@ class JSONVaderControllerTest extends TestCase
         $this->di->set("response", "\Anax\Response\Response");
         $request->setPost("ip1", "Kramfors");
         $request->setPost("pastOrFuture", "future");
-        $res = $this->controller->JsonVaderActionPost();
+        $res = $this->controller->jsonVaderActionPost();
         // $this->assertIsObject($res);
         // $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertEquals(null, $res->getBody());
@@ -195,14 +195,14 @@ class JSONVaderControllerTest extends TestCase
     /**
      * Test the route "indexPost".
      */
-    public function testJsonVaderActionPost4()
+    public function testjsonVaderActionPost4()
     {
         $request = $this->di->get("request");
         $response = $this->di->get("response");
         $this->di->set("response", "\Anax\Response\Response");
         $request->setPost("ip1", "Kramfors");
         $request->setPost("pastOrFuture", "past");
-        $res = $this->controller->JsonVaderActionPost();
+        $res = $this->controller->jsonVaderActionPost();
         // $this->assertIsObject($res);
         // $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertEquals(null, $res->getBody());
@@ -212,21 +212,21 @@ class JSONVaderControllerTest extends TestCase
     }
 
 
-    public function testJsonVaderActionGet()
+    public function testjsonVaderActionGet()
     {
         // $request = $this->di->get("request");
         // $response = $this->di->get("response");
         // $this->di->set("response", "\Anax\Response\Response");
         // $request->setPost("ip1", "Kramfors");
         // $request->setPost("pastOrFuture", "past");
-        // $res = $this->controller->JsonVaderActionPost();
+        // $res = $this->controller->jsonVaderActionPost();
         // // $this->assertIsObject($res);
         // // $this->assertInstanceOf("\Anax\Response\Response", $res);
         // $this->assertEquals(null, $res->getBody());
         // $body = $res->getBody();
         // $xxx = "IPv4";
         // $this->assertContains($xxx, $body);
-        $res = $this->controller->JsonVaderActionGet();
+        $res = $this->controller->jsonVaderActionGet();
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);

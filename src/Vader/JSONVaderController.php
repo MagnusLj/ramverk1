@@ -16,7 +16,7 @@ use Anax\Commons\ContainerInjectableTrait;
  * The controller is mounted on a particular route and can then handle all
  * requests for that mount point.
  */
-class JSONVaderController implements ContainerInjectableInterface
+class jsonVaderController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -112,21 +112,20 @@ class JSONVaderController implements ContainerInjectableInterface
         $coordinates = $vader->checkCoordinates($theIP);
 
         if ($coordinates) {
+            $latitude = $coordinates['latitude'];
+            $longitude = $coordinates['longitude'];
 
-        $latitude = $coordinates['latitude'];
-        $longitude = $coordinates['longitude'];
+            // $IPInfo = $IPHandler->checkIP($theIP);
 
-        // $IPInfo = $IPHandler->checkIP($theIP);
+            // $IPInfo = $IPHandler->checkIP($theIP);
 
-        // $IPInfo = $IPHandler->checkIP($theIP);
+            $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
 
-        $weather = $vader->checkWeather($latitude, $longitude, $pastOrFuture);
+            // $largeMapLink = $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']);
 
-        // $largeMapLink = $IPHandler->largeMapLink($IPInfo['latitude'], $IPInfo['longitude']);
+            $largeMapLink = ($latitude ? $IPHandler->largeMapLink($latitude, $longitude) : "");
 
-        $largeMapLink = ($latitude ? $IPHandler->largeMapLink($latitude, $longitude) : "");
-
-        $weather2 = $vader->checkWeather2($weather);
+            $weather2 = $vader->checkWeather2($weather);
 
         // $message = 'Hello '.($user->is_logged_in() ? $user->get('first_name') : 'Guest');
 
@@ -137,16 +136,11 @@ class JSONVaderController implements ContainerInjectableInterface
         //
         // $json = json_encode($IPInfo2);
 
-        $weather2['mapLink'] = $largeMapLink;
-
-    } else {
-        $weather2 = [];
-        $weather2['data'] = "No result for you!";
-
-        // $weather2 = json_encode($obj);
-
-    }
-
+            $weather2['mapLink'] = $largeMapLink;
+        } else {
+            $weather2 = [];
+            $weather2['data'] = "No result for you!";
+        }
         return [$weather2];
     }
 
@@ -154,7 +148,7 @@ class JSONVaderController implements ContainerInjectableInterface
 // $var_is_greater_than_two = ($var > 2 ? true : false);
 
 
-    public function JSONVaderActionGet() : object
+    public function jsonVaderActionGet() : object
     {
         // $session = $this->di->session;
         // // $session->set("ip1", "ip2");
@@ -174,7 +168,7 @@ class JSONVaderController implements ContainerInjectableInterface
         // $data = [
         //     "content" => "HELLO!"
         // ];
-        $page->add("Vader/JsonVader", $data);
+        $page->add("vader/jsonVader", $data);
         // $page->add("anax/v2/article/default", $data, "sidebar-left");
         // $page->add("anax/v2/article/default", $data, "sidebar-right");
         // $page->add("anax/v2/article/default", $data, "flash");
@@ -203,7 +197,7 @@ class JSONVaderController implements ContainerInjectableInterface
     // }
 
 
-    public function JsonVaderActionPost() : object
+    public function jsonVaderActionPost() : object
     {
            // $session = $this->di->session;
            $IPHandler = new \Malm18\IPChecker\IPHandler();

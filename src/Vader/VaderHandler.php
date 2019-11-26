@@ -37,11 +37,6 @@ class VaderHandler
             $coordinates['longitude'] = strval($response2['longitude']);
             // echo $response . PHP_EOL;
             return $coordinates;
-            //
-            // // echo $response . PHP_EOL;
-            // return $response2;
-
-
         } else {
             $coordinates = [];
             // $response = array("type" => "not valid ip", "ip" => "", "latitude"=> "", "longitude"=> "",
@@ -65,12 +60,11 @@ class VaderHandler
             $response = curl_exec($curl);
 
             if (strlen($response) > 10) {
-
-            $response2 = json_decode($response, true);
-            curl_close($curl);
-            $coordinates['latitude'] = $response2[0]['lat'];
-            $coordinates['longitude'] = $response2[0]['lon'];
-        }
+                $response2 = json_decode($response, true);
+                curl_close($curl);
+                $coordinates['latitude'] = $response2[0]['lat'];
+                $coordinates['longitude'] = $response2[0]['lon'];
+            }
             // echo $response . PHP_EOL;
             return $coordinates;
         }
@@ -120,36 +114,29 @@ class VaderHandler
         $end_stuff = '?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=si';
 
         if ($pastOrFuture=="future") {
-
-        $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
-        // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
-        $curl = curl_init($requestUrl);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    // curl_setopt($curl, CURLOPT_HTTPHEADER, [
-    //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
-    //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
-    //   'Content-Type: application/json'
-    // ]);
-        $response = curl_exec($curl);
-        $response2 = json_decode($response, true);
-        curl_close($curl);
-        // $coordinates['latitude'] = $response2[0]['lat'];
-        // $coordinates['longitude'] = $response2[0]['lon'];
-        // echo $response . PHP_EOL;
-        return $response2['daily']['data'];
-    } else {
-
-
-
-
-
-
+            $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . $end_stuff;
+            // $request_url = 'https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1&email=a@b.se';
+            $curl = curl_init($requestUrl);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        //   'X-RapidAPI-Host: kvstore.p.rapidapi.com',
+        //   'X-RapidAPI-Key: 7xxxxxxxxxxxxxxxxxxxxxxx',
+        //   'Content-Type: application/json'
+        // ]);
+            $response = curl_exec($curl);
+            $response2 = json_decode($response, true);
+            curl_close($curl);
+            // $coordinates['latitude'] = $response2[0]['lat'];
+            // $coordinates['longitude'] = $response2[0]['lon'];
+            // echo $response . PHP_EOL;
+            return $response2['daily']['data'];
+        } else {
         // array of curl handles
-        $multiCurl = array();
-        // data to be returned
-        $response = array();
-        // multi handle
-        $mh = curl_multi_init();
+            $multiCurl = array();
+            // data to be returned
+            $response = array();
+            // multi handle
+            $mh = curl_multi_init();
 
 
 
@@ -163,23 +150,23 @@ class VaderHandler
 
 
 
-        for ($i=0; $i < 3; $i++) {
-          $unixTime = time() - ($i * 24 * 60 * 60);
-          $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','. $unixTime . $end_stuff;
-          $multiCurl[$i] = curl_init();
-          curl_setopt($multiCurl[$i], CURLOPT_URL,$requestUrl);
-          curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
-          curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,1);
-          curl_multi_add_handle($mh, $multiCurl[$i]);
-        }
-        $index=null;
-        do {
-          curl_multi_exec($mh,$index);
-        } while($index > 0);
+            for ($i=0; $i < 30; $i++) {
+                $unixTime = time() - ($i * 24 * 60 * 60);
+                $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','. $unixTime . $end_stuff;
+                $multiCurl[$i] = curl_init();
+                curl_setopt($multiCurl[$i], CURLOPT_URL, $requestUrl);
+                curl_setopt($multiCurl[$i], CURLOPT_HEADER, 0);
+                curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER, 1);
+                curl_multi_add_handle($mh, $multiCurl[$i]);
+            }
+            $index=null;
+            do {
+                curl_multi_exec($mh, $index);
+            } while ($index > 0);
         // get content and remove handles
-        foreach($multiCurl as $k => $ch) {
-          $response[$k] = curl_multi_getcontent($ch);
-          curl_multi_remove_handle($mh, $ch);
+            foreach ($multiCurl as $k => $ch) {
+                $response[$k] = curl_multi_getcontent($ch);
+                curl_multi_remove_handle($mh, $ch);
             }
             // close
             curl_multi_close($mh);
@@ -203,75 +190,7 @@ class VaderHandler
             // return $data[0]['daily']['data'];
             // $response2 = json_decode($data, true);
             return $data2;
-
-
-          //   $mh = curl_multi_init();
-          //   $results = [];
-          //
-          //   for ($i=0; $i < 3; $i++) {
-          //     $unixTime = time() - ($i * 24 * 60 * 60);
-          //     $requestUrl = $url1 . $api_key . "/" . $latitude . "," . $longitude . ','.$unixTime . $end_stuff;
-          //     $ch_[$i] = curl_init($requestUrl);
-          //     curl_setopt($ch_[$i], CURLOPT_RETURNTRANSFER, true);
-          //     curl_multi_add_handle($mh, $ch_[$i]);
-          // }
-          //
-          // $running = null;
-          // do {
-          //   curl_multi_exec($mh, $running);
-          // } while ($running);
-          //
-          // for ($i=0; $i < 3; $i++) {
-          //     array_push($results, curl_multi_getcontent($ch_[$i]));
-          // }
-
-
-
-            //
-            // // with curl_multi, you only have to wait for the longest-running request
-            //
-            // // build the individual requests as above, but do not execute them
-            // $ch_1 = curl_init('http://webservice.one.com/');
-            // $ch_2 = curl_init('http://webservice.two.com/');
-            // curl_setopt($ch_1, CURLOPT_RETURNTRANSFER, true);
-            // curl_setopt($ch_2, CURLOPT_RETURNTRANSFER, true);
-            //
-            // // build the multi-curl handle, adding both $ch
-            // $mh = curl_multi_init();
-            // curl_multi_add_handle($mh, $ch_1);
-            // curl_multi_add_handle($mh, $ch_2);
-            //
-            // // execute all queries simultaneously, and continue when all are complete
-            // $running = null;
-            // do {
-            //   curl_multi_exec($mh, $running);
-            // } while ($running);
-            //
-            //
-            //
-            // // all of our requests are done, we can now access the results
-            // $response_1 = curl_multi_getcontent($ch_1);
-            // $response_2 = curl_multi_getcontent($ch_2);
-            // echo "$response_1 $response_2"; // same output as first example
-            //
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-        // $coordinates = "Latitud: " . $latitude . ", longitud: " . $longitude;
-        // return $coordinates;
+        }
     }
 
 
