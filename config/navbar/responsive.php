@@ -7,7 +7,7 @@ return [
     "id" => "rm-menu",
     "wrapper" => null,
     "class" => "rm-default rm-mobile",
- 
+
     // Here comes the menu items
     "items" => [
         [
@@ -48,6 +48,26 @@ return [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
+        ],
+        [
+            "text" => "IP-kollare",
+            "url" => "ip-checker",
+            "title" => "Kolla IP-adress.",
+        ],
+        [
+            "text" => "IP-JSON",
+            "url" => "ip-json-checker/ipJsonChecker",
+            "title" => "Kolla IP-adress.",
+        ],
+        [
+            "text" => "Väder",
+            "url" => "vader",
+            "title" => "Blir det ruskigt måntro?",
+        ],
+        [
+            "text" => "JSON-väder",
+            "url" => "json-vader/jsonVader",
+            "title" => "JSON-väder",
         ],
     ],
 ];
