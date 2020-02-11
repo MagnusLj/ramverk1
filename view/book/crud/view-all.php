@@ -27,7 +27,7 @@ $urlToDelete = url("book/delete");
 
 <?php if (!$items) : ?>
     <p>There are no books to show.</p>
-<?php
+    <?php
     return;
 endif;
 ?>

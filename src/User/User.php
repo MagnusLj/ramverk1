@@ -36,10 +36,10 @@ class User extends ActiveRecordModel
  *
  * @return void
  */
-public function setPassword($password)
-{
-    $this->password = password_hash($password, PASSWORD_DEFAULT);
-}
+    public function setPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
 
 
 /**
@@ -51,14 +51,9 @@ public function setPassword($password)
  *
  * @return boolean true if acronym and password matches, else false.
  */
-public function verifyPassword($acronym, $password)
-{
-    $this->find("acronym", $acronym);
-    return password_verify($password, $this->password);
-}
-
-
-
-
-
+    public function verifyPassword($acronym, $password)
+    {
+        $this->find("acronym", $acronym);
+        return password_verify($password, $this->password);
+    }
 }

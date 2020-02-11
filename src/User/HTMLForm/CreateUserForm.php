@@ -7,9 +7,6 @@ use Psr\Container\ContainerInterface;
 //?
 use Malm18\User\User;
 
-
-
-
 /**
  * Example of FormModel implementation.
  */
@@ -79,7 +76,7 @@ class CreateUserForm extends FormModel
         $passwordAgain = $this->form->value("password-again");
 
         // Check password matches
-        if ($password !== $passwordAgain ) {
+        if ($password !== $passwordAgain) {
             $this->form->rememberValues();
             $this->form->addOutput("Password did not match.");
             return false;
